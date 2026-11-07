@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>سَمْت</title>
+<script>try{var t=localStorage.getItem('samt_theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: white cards on a cool teal-grey field, navy + teal from the ministry palette, one task per screen. */
+:root{
+  --navy:#15445a; --teal:#0da9a6; --green:#07a869; --blue:#3d7eb9; --gold:#c1b489; --purple:#7258a4;
+  --bg:#f2f6f7; --surface:#ffffff; --ink:#123241; --muted:#5b7380; --line:#dbe5e9; --soft:#f6f9fa;
+  --accent:#0a8b88; --accent-ink:#ffffff; --accent-soft:#e2f4f3; --accent-line:#9fd9d6;
+  --hero-a:#ffffff; --hero-b:#e6f4f3;
+  --ok:#068a57; --ok-soft:#e1f5ec; --amb:#a8730f; --amb-soft:#fbf1dc; --bad:#b4403c; --bad-soft:#fbe5e4;
+  --tR:#b08d3c; --tI:#3d7eb9; --tA:#7258a4; --tS:#07a869; --tE:#0da9a6; --tC:#5f7480;
+  --f:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+  --r:16px; --sh:0 1px 2px rgba(21,68,90,.05),0 6px 20px rgba(21,68,90,.06);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0a171d; --surface:#10232b; --ink:#e3eef1; --muted:#8ea8b2; --line:#1f3a45; --soft:#0d1d24;
+  --accent:#2fc4bf; --accent-ink:#04201f; --accent-soft:#123634; --accent-line:#1e6a67;
+  --hero-a:#10232b; --hero-b:#123634;
+  --ok:#4fd197; --ok-soft:#123326; --amb:#e8b452; --amb-soft:#352a12; --bad:#f08a86; --bad-soft:#3a1c1c;
+  --tR:#d2b064; --tI:#6fa6dd; --tA:#a58cd6; --tS:#38c98d; --tE:#38cfcb; --tC:#93a8b3;
+  --sh:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0a171d; --surface:#10232b; --ink:#e3eef1; --muted:#8ea8b2; --line:#1f3a45; --soft:#0d1d24;
+  --accent:#2fc4bf; --accent-ink:#04201f; --accent-soft:#123634; --accent-line:#1e6a67;
+  --hero-a:#10232b; --hero-b:#123634;
+  --ok:#4fd197; --ok-soft:#123326; --amb:#e8b452; --amb-soft:#352a12; --bad:#f08a86; --bad-soft:#3a1c1c;
+  --tR:#d2b064; --tI:#6fa6dd; --tA:#a58cd6; --tS:#38c98d; --tE:#38cfcb; --tC:#93a8b3;
+  --sh:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark;}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.75;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4{text-wrap:balance;line-height:1.45;margin:0;font-weight:700}
+p{margin:0}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.ic{display:inline-block;flex:none;vertical-align:middle}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* header */
+.hdr{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.hdr-in{max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;color:var(--navy);background:none;border:0;cursor:pointer;padding:0;white-space:nowrap}
+:root[data-theme="dark"] .brand{color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand{color:var(--ink)}}
+.nav{display:flex;gap:18px;margin-inline-start:auto;font-size:14.5px}
+.nav a{color:var(--muted);text-decoration:none}.nav a:hover{color:var(--accent)}
+.hdr .meta{margin-inline-start:auto;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+@media (max-width:560px){.nav{display:none}}
+
+.wrap{max-width:1100px;margin:0 auto;padding:24px 20px 56px}
+.narrow{max-width:780px;margin:0 auto}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh)}
+.pad{padding:26px}
+@media (max-width:560px){.pad{padding:20px 18px}}
+.muted{color:var(--muted)}
+.sm{font-size:14px}
+
+/* buttons */
+.btn{appearance:none;border:0;border-radius:12px;padding:12px 22px;font-weight:600;font-size:16px;cursor:pointer;background:var(--accent);color:var(--accent-ink);display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:filter .15s,transform .08s}
+.btn:hover{filter:brightness(1.08)}.btn:active{transform:scale(.98)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;filter:none}
+.btn.lg{padding:14px 30px;font-size:17px}
+.btn.out{background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn.out:hover{box-shadow:inset 0 0 0 1.5px var(--accent);filter:none}
+.btn.ghost{background:none;color:var(--muted);padding:10px 8px}
+.btn.ghost:hover{color:var(--ink);filter:none}
+.btn.sm{padding:8px 14px;font-size:14px;border-radius:10px}
+
+/* landing */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;padding:36px 36px 0;background:linear-gradient(160deg,var(--hero-a),var(--hero-b));overflow:hidden}
+.hero h1{font-size:clamp(28px,4.4vw,44px);color:var(--navy);margin-bottom:14px}
+:root[data-theme="dark"] .hero h1{color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero h1{color:var(--ink)}}
+.hero h1 span{color:var(--accent)}
+.hero .lead{color:var(--muted);font-size:17px;max-width:32em;margin-bottom:24px}
+.hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+.hero-art{align-self:end}
+.hero-art svg{width:100%;height:auto;display:block;max-height:360px}
+.hstats{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0 -36px;background:var(--surface);border-top:1px solid var(--line)}
+.hstats div{display:flex;align-items:center;gap:12px;padding:16px 24px;font-size:14px;color:var(--muted)}
+.hstats div+div{border-inline-start:1px solid var(--line)}
+.hstats b{display:block;color:var(--ink);font-size:20px;font-variant-numeric:tabular-nums;line-height:1.3}
+.hstats .ic{color:var(--accent)}
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr;padding:26px 22px 0}
+  .hero-art{order:-1;max-width:340px;justify-self:center}
+  .hstats{margin:0 -22px;grid-template-columns:1fr 1fr 1fr}
+  .hstats div{flex-direction:column;align-items:flex-start;gap:4px;padding:12px 14px;font-size:12.5px}
+  .hstats b{font-size:17px}
+}
+.sec-t{font-size:22px;margin:38px 0 6px;color:var(--ink)}
+.sec-s{color:var(--muted);margin-bottom:16px}
+.feat4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.feat4 .card{padding:20px}
+.fi{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);margin-bottom:12px}
+.feat4 h3{font-size:16.5px;margin-bottom:6px}
+.feat4 p{font-size:14.5px;color:var(--muted)}
+@media (max-width:900px){.feat4{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.feat4{grid-template-columns:1fr}}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tcard{padding:16px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--line);border-inline-start:4px solid}
+.tcard b{display:flex;align-items:center;gap:8px}
+.tl{display:inline-grid;place-items:center;min-width:24px;height:24px;border-radius:7px;color:#fff;font-size:13px;font-weight:700}
+.tcard p{font-size:14px;color:var(--muted);margin-top:4px}
+@media (max-width:820px){.tgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.tgrid{grid-template-columns:1fr}}
+.faq details{border-bottom:1px solid var(--line);padding:14px 4px}
+.faq details:last-child{border-bottom:0}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent);font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq p{color:var(--muted);margin-top:8px;font-size:15px}
+
+/* intro */
+.stepper{display:flex;align-items:flex-start;justify-content:center;gap:0;margin:4px 0 22px}
+.stp{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13px;color:var(--muted);min-width:90px}
+.stp i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;border:2px solid var(--line);background:var(--surface);color:var(--muted)}
+.stp.on{color:var(--ink);font-weight:600}.stp.on i{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.stp-line{flex:1;max-width:120px;height:2px;background:var(--line);margin-top:15px}
+.intro h1{text-align:center;font-size:26px;margin-bottom:20px}
+.ifeat{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ifeat div{border:1px solid var(--line);border-radius:14px;padding:18px 14px;text-align:center}
+.ifeat .ic{color:var(--accent);margin-bottom:6px}
+.ifeat b{display:block;margin-bottom:4px}
+.ifeat span{font-size:13.5px;color:var(--muted);line-height:1.6;display:block}
+@media (max-width:600px){.ifeat{grid-template-columns:1fr}.ifeat div{display:grid;grid-template-columns:auto 1fr;text-align:start;gap:0 12px;align-items:center}.ifeat .ic{grid-row:span 2;margin:0}}
+.imeta{display:grid;grid-template-columns:1fr 1fr;margin:18px 0 4px;border:1px solid var(--line);border-radius:14px}
+.imeta div{display:flex;align-items:center;gap:12px;padding:14px 18px;font-size:14px;color:var(--muted)}
+.imeta div+div{border-inline-start:1px solid var(--line)}
+.imeta b{display:block;color:var(--ink);font-size:15.5px}
+.imeta .ic{color:var(--accent)}
+.field{margin-top:20px}
+.lbl{display:block;font-weight:600;margin-bottom:10px}
+.lbl small{font-weight:400;color:var(--muted)}
+input[type=text]{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--soft)}
+input[type=text]:focus{outline:none;border-color:var(--accent)}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.chip{display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:start;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;line-height:1.5;font-size:15px}
+.chip:hover{border-color:var(--accent-line)}
+.chip.on{border-color:var(--accent);background:var(--accent-soft);font-weight:600}
+.rd{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);flex:none;transition:all .15s}
+.on > .rd{border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 3px var(--surface)}
+.err{color:var(--bad);font-size:14px;min-height:22px;margin-top:10px}
+.center{display:flex;justify-content:center}
+
+/* question shell */
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.part{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--accent);font-weight:600;border-radius:99px;padding:2px 12px;font-size:13px}
+.pbar{height:6px;border-radius:99px;background:var(--line);margin:10px 0 0;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+.segs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}
+.segs span{font-size:11.5px;color:var(--muted);text-align:center;line-height:1.3}
+.segs span.on{color:var(--accent);font-weight:600}
+@media (max-width:520px){.segs{display:none}}
+.qcard{margin-top:16px}
+.qlead{color:var(--muted);font-size:15px}
+.qtext{font-size:clamp(20px,3.2vw,25px);font-weight:700;line-height:1.6;margin:6px 0 22px;text-wrap:balance}
+.olist{display:grid;gap:10px}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:start;padding:13px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;line-height:1.55;font-size:15.5px;transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--accent-line)}
+.opt.on{border-color:var(--accent);background:var(--accent-soft);font-weight:600}
+.opt .k{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--soft);border:1px solid var(--line);font-size:13px;font-weight:700;color:var(--muted);flex:none}
+.opt.on .k{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.opt .tx{flex:1}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:10px}
+.kbd{font-size:12px;color:var(--muted);text-align:center;margin-top:12px}
+@media (max-width:560px){.kbd{display:none}}
+
+/* pair */
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pc{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:22px 16px 16px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;transition:all .15s}
+.pc:hover{border-color:var(--accent-line)}
+.pc .pi{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:var(--soft);color:var(--navy)}
+.pc b{font-size:16px;line-height:1.5}
+.pc small{color:var(--muted);font-size:13.5px}
+.pc.on{border-color:var(--accent);background:var(--accent-soft)}
+.pc.on .pi{background:var(--accent);color:var(--accent-ink)}
+@media (max-width:480px){.pair{grid-template-columns:1fr}}
+
+/* section intro & milestones */
+.sec-hero{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+.sec-ic{width:72px;height:72px;border-radius:20px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.sec-hero h2{font-size:23px;margin-bottom:6px}
+.sec-points{display:grid;gap:8px;margin-top:18px;padding:0;list-style:none}
+.sec-points li{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.sec-points .ic{color:var(--accent);margin-top:4px}
+@media (max-width:520px){.sec-hero{grid-template-columns:1fr}}
+.mile{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.ring{--v:50;width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--accent) calc(var(--v)*1%),var(--line) 0)}
+.ring span{width:96px;height:96px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.ring.sm{width:58px;height:58px}.ring.sm span{width:46px;height:46px;font-size:14.5px}
+.tipbox{display:flex;gap:10px;background:var(--amb-soft);border-radius:12px;padding:12px 14px;margin-top:16px;font-size:14.5px}
+.tipbox .ic{color:var(--amb);margin-top:3px}
+.done{text-align:center;padding:40px 26px}
+.done .chk{width:84px;height:84px;border-radius:50%;background:var(--ok);display:grid;place-items:center;margin:0 auto 18px;color:#fff;position:relative}
+.done .chk::before,.done .chk::after{content:"";position:absolute;inset:-26px;border-radius:50%;background:radial-gradient(circle,var(--gold) 2.5px,transparent 3px) 0 0/34px 34px,radial-gradient(circle,var(--teal) 2px,transparent 2.5px) 15px 12px/30px 30px;opacity:.7;z-index:-1;mask:radial-gradient(circle,transparent 46%,#000 47%)}
+.done .chk::after{inset:-40px;background:radial-gradient(circle,var(--purple) 2px,transparent 2.5px) 6px 6px/38px 38px;opacity:.5}
+.done h1{font-size:26px;margin-bottom:8px}
+
+/* tasks */
+.tfield{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--navy);background:var(--soft);border:1px solid var(--line);border-radius:99px;padding:2px 12px}
+:root[data-theme="dark"] .tfield{color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tfield{color:var(--ink)}}
+.ttitle{font-size:22px;margin:12px 0 6px}
+.tintro{color:var(--muted);margin-bottom:18px}
+.codebox{direction:rtl;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:#0f2a36;color:#d9f3f2;border-radius:12px;padding:14px 18px;white-space:pre;font-size:15px;line-height:1.9;margin-bottom:16px;overflow-x:auto}
+.rule{border-inline-start:4px solid var(--gold);background:var(--soft);padding:12px 14px;border-radius:10px;margin-bottom:16px;font-size:15px}
+.ttable{width:100%;border-collapse:collapse;margin-bottom:16px;font-variant-numeric:tabular-nums}
+.ttable th,.ttable td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:start}
+.ttable th{font-size:13.5px;color:var(--muted);font-weight:600;background:var(--soft)}
+.mchart{margin:0 auto 16px;max-width:520px}
+.mchart svg{width:100%;height:auto;display:block}
+.bopts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.bopt{border:1.5px solid var(--line);border-radius:14px;background:var(--surface);cursor:pointer;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:14px}
+.bopt svg{width:100%;height:auto;color:var(--navy)}
+:root[data-theme="dark"] .bopt svg{color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bopt svg{color:var(--ink)}}
+.bopt.on{border-color:var(--accent);background:var(--accent-soft);font-weight:600}
+.ordl{display:grid;gap:10px}
+.ordi{display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;text-align:start;width:100%}
+.ordi .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:2px dashed var(--line);font-weight:700;flex:none;color:var(--muted)}
+.ordi.on{border-color:var(--accent);background:var(--accent-soft)}
+.ordi.on .n{border:0;background:var(--accent);color:var(--accent-ink)}
+.fb{border-radius:12px;padding:14px 16px;margin-top:16px;font-size:15px}
+.fb.ok{background:var(--ok-soft)}.fb.no{background:var(--bad-soft)}
+.fb b{display:block;margin-bottom:2px}
+.fb.ok b{color:var(--ok)}.fb.no b{color:var(--bad)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.enj{margin-top:20px;padding-top:18px;border-top:1px dashed var(--line)}
+.enj .lbl{margin-bottom:10px}
+.escale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.escale button{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 4px;cursor:pointer;font-size:13px;line-height:1.3;display:flex;flex-direction:column;align-items:center;gap:6px}
+.escale button svg{color:var(--muted)}
+.escale button.on{border-color:var(--accent);background:var(--accent-soft);font-weight:600}
+.escale button.on svg{color:var(--accent)}
+
+/* subjects */
+.subj{display:grid;grid-template-columns:170px 1fr;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.subj:last-child{border-bottom:0}
+.subj .nm{font-weight:600}
+.seg{display:grid;grid-template-columns:repeat(5,1fr);border:1.5px solid var(--line);border-radius:12px;overflow:hidden}
+.seg button{border:0;border-inline-start:1px solid var(--line);background:var(--surface);padding:9px 2px;font-size:13px;cursor:pointer;line-height:1.3}
+.seg button:first-child{border-inline-start:0}
+.seg button:hover{background:var(--accent-soft)}
+.seg button.on{background:var(--accent);color:var(--accent-ink);font-weight:600}
+@media (max-width:560px){.subj{grid-template-columns:1fr;gap:8px}}
+.adnote{display:flex;gap:10px;background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:14.5px;margin-bottom:18px}
+.adnote .ic{color:var(--accent);margin-top:3px}
+
+/* results */
+.rtop{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.rtop h1{font-size:24px}
+.ract{display:flex;gap:8px;flex-wrap:wrap}
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:5px;overflow-x:auto;margin-bottom:16px;scrollbar-width:none}
+.tabs button{flex:1;white-space:nowrap;border:0;background:none;border-radius:10px;padding:10px 16px;font-weight:600;font-size:15px;color:var(--muted);cursor:pointer}
+.tabs button:hover{color:var(--ink)}
+.tabs button.on{background:var(--accent);color:var(--accent-ink)}
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;align-items:start}
+.grid2 > *{min-width:0}
+@media (max-width:860px){.grid2{grid-template-columns:1fr}}
+.stack{display:grid;gap:16px}
+.sumhero{display:grid;grid-template-columns:1fr 220px;gap:16px;align-items:center}
+.sumhero h2{font-size:24px;margin-bottom:8px}
+.sumhero svg{width:100%;height:auto}
+@media (max-width:560px){.sumhero{grid-template-columns:1fr}.sumhero svg{max-width:220px;justify-self:center;order:-1}}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.tile{border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:center}
+.tile .ic{color:var(--accent)}
+.tile b{display:block;font-size:17px;line-height:1.4}
+.tile span{font-size:12.5px;color:var(--muted)}
+@media (max-width:640px){.tiles{grid-template-columns:1fr}}
+.h3{font-size:17px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.h3 .ic{color:var(--accent)}
+.bars{display:grid;gap:12px}
+.brow .bl{display:flex;justify-content:space-between;font-size:14.5px;margin-bottom:4px}
+.brow .bl span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
+.brow .t{height:9px;border-radius:99px;background:var(--line);overflow:hidden}
+.brow .t i{display:block;height:100%;border-radius:99px}
+.txt p+p{margin-top:8px}
+.dchips{display:flex;flex-wrap:wrap;gap:8px}
+.dchip{border:1px solid var(--line);border-radius:99px;padding:4px 12px;font-size:14px;display:inline-flex;gap:6px;align-items:center}
+.dchip b{color:var(--accent);font-variant-numeric:tabular-nums}
+.trl{display:grid;gap:8px}
+.tr{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;font-size:14.5px;padding:8px 0;border-bottom:1px solid var(--line)}
+.tr:last-child{border-bottom:0}
+.tr .ic{color:var(--muted)}
+.stars{display:flex;gap:2px;color:var(--gold)}
+.okx{font-size:12px;font-weight:600;border-radius:99px;padding:1px 8px}
+.okx.y{background:var(--ok-soft);color:var(--ok)}.okx.n{background:var(--bad-soft);color:var(--bad)}
+
+.wish{overflow:hidden}
+.wish summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:40px 1fr auto;gap:14px;align-items:center;padding:14px 16px}
+.wish summary::-webkit-details-marker{display:none}
+.rank{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:17px;background:var(--soft);color:var(--muted);border:1px solid var(--line)}
+.rank.r1{background:#c9a227;color:#fff;border:0}.rank.r2{background:#9aa7b0;color:#fff;border:0}.rank.r3{background:#b57a46;color:#fff;border:0}
+.wn{font-weight:700;font-size:16.5px;line-height:1.45}
+.wmeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:3px;font-size:13px;color:var(--muted)}
+.score{min-width:76px;text-align:center;border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:12px;padding:6px 8px;line-height:1.2}
+.score b{display:block;font-size:19px;color:var(--accent);font-variant-numeric:tabular-nums}
+.score span{font-size:11.5px;color:var(--muted)}
+.chev{transition:transform .2s;color:var(--muted)}
+.wish[open] .chev{transform:rotate(180deg)}
+.wb{padding:2px 18px 20px;padding-inline-start:70px;display:grid;gap:14px}
+@media (max-width:560px){.wb{padding-inline-start:18px}}
+.wb h4{font-size:13.5px;color:var(--muted);font-weight:600;margin-bottom:4px}
+.wb ul{margin:0;padding-inline-start:18px}
+.wb li{margin-bottom:4px}
+.why li::marker{color:var(--ok)}
+.warn{background:var(--amb-soft);border-radius:12px;padding:12px 14px;font-size:14.5px}
+.warn > b{color:var(--amb)}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.facts div{background:var(--soft);border-radius:10px;padding:9px 12px;font-size:14px;line-height:1.5}
+.facts small{display:block;font-size:12px;color:var(--muted)}
+@media (max-width:560px){.facts{grid-template-columns:1fr 1fr}}
+.tip{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:14.5px}
+.tip b{color:var(--accent)}
+.pill{font-size:12px;font-weight:600;padding:2px 10px;border-radius:99px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.amb{background:var(--amb-soft);color:var(--amb)}
+.pill.fit{background:var(--accent-soft);color:var(--accent)}
+.pill.safe{background:var(--ok-soft);color:var(--ok)}
+.pill.no{background:var(--bad-soft);color:var(--bad)}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+/* debate */
+.vs{display:grid;grid-template-columns:150px repeat(3,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.vs > div{padding:10px 12px;border-bottom:1px solid var(--line);font-size:14px;min-width:0}
+.vs .h{background:var(--soft);font-weight:700;font-size:14.5px;line-height:1.4}
+.vs .h small{display:block;font-weight:500;color:var(--muted);font-size:12px}
+.vs .f{color:var(--muted);font-weight:600}
+.vs .last{border-bottom:0}
+.cell{display:grid;gap:4px}
+.cell .t{height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.cell .t i{display:block;height:100%;border-radius:99px;background:var(--accent)}
+.cell.best .t i{background:var(--ok)}
+.cell span{font-variant-numeric:tabular-nums;font-size:13px}
+.cell.best span{color:var(--ok);font-weight:700}
+.vswrap{overflow-x:auto}
+.vswrap .vs{min-width:560px}
+.argue{display:grid;gap:12px}
+.arg{border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.arg h4{font-size:15.5px;margin-bottom:6px;display:flex;gap:8px;align-items:center}
+.arg ul{margin:0;padding-inline-start:18px;font-size:14.5px}
+.arg .con{color:var(--muted)}
+.diff{display:grid;gap:10px}
+.diff .d{border-inline-start:3px solid var(--amb);padding-inline-start:12px;font-size:14.5px}
+.diff .d b{display:block}
+.sliders{display:grid;gap:14px}
+.sl label{display:flex;justify-content:space-between;font-weight:600;font-size:14.5px;margin-bottom:2px}
+.sl label span{color:var(--accent);font-variant-numeric:tabular-nums}
+.sl small{display:block;color:var(--muted);font-size:12.5px;margin-bottom:4px}
+input[type=range]{width:100%;accent-color:var(--accent);height:24px}
+.rerank{display:grid;gap:6px}
+.rr{display:grid;grid-template-columns:28px 1fr auto 46px;gap:10px;align-items:center;font-size:14.5px;padding:8px 10px;border-radius:10px;background:var(--soft)}
+.rr .n{font-weight:700;color:var(--muted);text-align:center}
+.mv{font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;text-align:center}
+.mv.up{color:var(--ok)}.mv.dn{color:var(--bad)}.mv.eq{color:var(--muted)}
+.rr b{color:var(--accent);font-variant-numeric:tabular-nums;text-align:left}
+.recs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.recs .card{padding:18px}
+.recs .fi{margin-bottom:10px}
+.recs h4{font-size:15.5px;margin-bottom:6px}
+.recs p,.recs li{font-size:14.5px;color:var(--muted)}
+.recs ul{margin:6px 0 0;padding-inline-start:18px}
+@media (max-width:820px){.recs{grid-template-columns:1fr}}
+.advice ol{margin:0;padding-inline-start:20px;display:grid;gap:6px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,10px);background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:99px;font-size:14px;opacity:0;transition:all .25s;pointer-events:none;z-index:9}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.foot{max-width:1100px;margin:0 auto;padding:0 20px 32px;font-size:12.5px;color:var(--muted);text-align:center}
+
+/* ============ v4 — توصيات المجلس ============ */
+:root{--accent:#087a77; --amb:#8a6d0b; --ok:#05774b; --brand:#15445a; --onT:#fff; --r:20px;
+  --sh:0 1px 2px rgba(21,68,90,.04),0 10px 28px -10px rgba(21,68,90,.16)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--brand:#5fa3bf;--onT:#0a171d;--sh:0 1px 2px rgba(0,0,0,.3),0 10px 28px -10px rgba(0,0,0,.5)}}
+:root[data-theme="dark"]{--brand:#5fa3bf;--onT:#0a171d}
+button{touch-action:manipulation}
+[id]{scroll-margin-top:76px}
+.card{border-color:transparent}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .card{border-color:var(--line)}}
+:root[data-theme="dark"] .card{border-color:var(--line)}
+.brand{color:var(--brand)}
+.sec-t{font-size:28px;margin:56px 0 8px}
+.feat4 h3,.h3,.arg h4,.recs h4{font-weight:600}
+.tile,.ifeat div,.arg{border:0;background:var(--soft)}
+.imeta{border:0;background:var(--soft)}
+.imeta div+div{border-inline-start-color:var(--surface);border-inline-start-width:2px}
+.tcard{border:0;border-inline-start:0;display:flex;gap:14px;align-items:flex-start}
+.tcard .tl{width:40px;height:40px;border-radius:12px;flex:none;background:color-mix(in srgb,currentColor 14%,transparent)}
+.tcard b{font-size:16px}
+.chip.on,.opt.on,.bopt.on,.escale button.on{font-weight:inherit}
+.opt.on,.chip.on,.pc.on,.bopt.on,.ordi.on{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+.opt,.chip,.pc,.bopt,.ordi,.escale button,.seg button{transition:border-color .15s,background .15s,box-shadow .2s,transform .08s}
+.opt:active,.chip:active,.pc:active,.bopt:active,.ordi:active{transform:scale(.985)}
+
+/* question screen */
+.qcard{padding:40px 44px}
+@media (max-width:560px){.qcard{padding:24px 20px}}
+.pbar{height:4px}
+.qlead{color:var(--accent);font-weight:600;font-size:14px}
+.qtext{font-size:clamp(22px,3.4vw,30px);font-weight:600;line-height:1.55;color:var(--brand);outline:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .qtext{color:var(--ink)}}
+:root[data-theme="dark"] .qtext{color:var(--ink)}
+@media (min-width:640px){
+  .olist.lik{grid-template-columns:repeat(5,1fr)}
+  .lik .opt{flex-direction:column-reverse;justify-content:center;text-align:center;padding:18px 8px;gap:10px;font-size:14.5px}
+  .lik .opt .tx{flex:none}
+}
+.hint{font-size:14px;color:var(--amb);min-height:22px;margin-top:10px;text-align:center}
+.btn.dim{opacity:.45}
+.miss{box-shadow:0 0 0 2px var(--amb);border-radius:12px}
+.subj.miss{box-shadow:none;background:var(--amb-soft);margin-inline:-10px;padding-inline:10px;border-radius:12px}
+.bopt.right{border-color:var(--ok);background:var(--ok-soft)}
+.bopt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.ordi.right .n{background:var(--ok)!important;color:#fff}
+.ordi.wrong .n{background:var(--bad)!important;color:#fff}
+.codebox{border:1px solid var(--line);unicode-bidi:plaintext}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .codebox{background:var(--soft);color:var(--ink)}}
+:root[data-theme="dark"] .codebox{background:var(--soft);color:var(--ink)}
+.stars{color:var(--tR)}
+
+/* motion */
+@keyframes enter{from{opacity:0;transform:translateY(8px)}}
+.enter{animation:enter .32s cubic-bezier(.2,.7,.2,1) both}
+@keyframes grow{from{transform:scale(.15);opacity:0}}
+.hexpoly{transform-origin:center;transform-box:fill-box;animation:grow .6s cubic-bezier(.2,.7,.2,1) .1s both}
+@keyframes bar{from{transform:scaleX(0)}}
+.brow .t i{transform-origin:100% 50%;animation:bar .7s cubic-bezier(.2,.7,.2,1) both}
+.done{position:relative;isolation:isolate}
+.done .chk{animation:pop .5s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes pop{from{transform:scale(.4);opacity:0}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .done .chk{color:var(--accent-ink)}}
+
+/* results cover */
+.sumcard{background:radial-gradient(120% 140% at 100% 0,#1d5a73,#15445a 55%,#0f3446);border:0!important;color:#fff;
+ --ink:#fff;--muted:rgba(255,255,255,.78);--line:rgba(255,255,255,.18);--soft:rgba(255,255,255,.07);--accent:#3fd0cc;--surface:#15445a}
+.sumcard .sumhero h2{font-size:22px;color:#fff}
+.sumcard .tile{background:rgba(255,255,255,.07)}
+.sumcard .tile .ic{color:#3fd0cc}
+.sumcard .tile b{font-size:20px}
+.sumcard .eyebrow{font-size:13px;color:#9fe3e0;font-weight:600;margin-bottom:6px;display:block}
+
+/* wish cards */
+.wish{transition:box-shadow .2s,border-color .2s}
+.wish[open]{border-color:var(--accent-line)!important;box-shadow:0 12px 32px -12px rgba(21,68,90,.22)}
+.wish[open] .wb{animation:enter .25s both}
+.wish summary{grid-template-columns:40px minmax(0,1fr) auto 20px}
+.wish summary > div{min-width:0}
+.wmeta .pill{white-space:normal}
+@media (max-width:380px){.wish summary{gap:10px;padding:12px}}
+.rank.r1{background:var(--brand);color:#fff;border:0;box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--gold)}
+.rank.r2,.rank.r3{background:var(--accent-soft);color:var(--accent);border:0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .rank.r1{color:#04201f}}
+.wish .ring.sm span{font-size:14px}
+.scnote{font-size:13px;color:var(--muted);margin-top:8px}
+
+/* comparison */
+.stack > *{min-width:0}
+html,body{overflow-x:clip}
+.cell .t i{background:var(--muted);opacity:.45}
+.cell.best .t i{background:var(--ok);opacity:1}
+.vs .h.top{background:var(--accent-soft);color:var(--accent)}
+.vs > .f,.vs > .h:first-child{position:sticky;inset-inline-start:0;z-index:1;background:var(--surface)}
+.vs > .h:first-child{background:var(--soft)}
+@media (max-width:560px){.vswrap .vs{min-width:470px;grid-template-columns:92px repeat(3,minmax(120px,1fr))!important}}
+
+/* mobile */
+@media (pointer:coarse){.btn.sm,.btn.ghost{min-height:44px}.seg button{min-height:44px}}
+@media (max-width:560px){
+  .tabs{display:grid;grid-template-columns:1fr 1fr}.tabs button{padding:9px 6px;font-size:14px}
+  .hero-art{max-width:230px}
+}
+@media (max-width:380px){
+  .wrap{padding-inline:12px}.pad{padding:16px 14px}
+  .seg button{font-size:12px;padding:8px 1px}
+  .escale{gap:4px}.escale button{font-size:12px;padding:8px 2px}
+}
+.toast{bottom:calc(24px + env(safe-area-inset-bottom))}
+
+/* dialog */
+.dlg{position:fixed;inset:0;background:rgba(10,23,29,.5);display:grid;place-items:center;z-index:20;padding:20px;animation:enter .2s both}
+.dlg .card{max-width:400px;width:100%;padding:24px;text-align:center}
+.dlg h3{font-size:19px;margin-bottom:6px}
+.dlg .row{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.btn.danger{background:var(--bad);color:#fff}
+
+@media print{.hdr,.tabs,.ract,.toast,.sliders,.btn{display:none!important}body{background:#fff}.card{box-shadow:none;break-inside:avoid}}
+
+/* ============ v5 — المرحلة ٣: الواجهة ============ */
+/* header + theme menu */
+.hright{margin-inline-start:auto;display:flex;align-items:center;gap:14px;min-width:0}
+.hright .nav,.hright .meta{margin-inline-start:0}
+.thm{position:relative;flex:none}
+.thb{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--muted);display:grid;place-items:center;cursor:pointer;padding:0}
+.thb:hover,.thb[aria-expanded="true"]{color:var(--ink);border-color:var(--accent-line)}
+.thmenu{position:absolute;inset-inline-end:0;top:calc(100% + 6px);background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);padding:6px;display:grid;gap:2px;min-width:180px;z-index:10}
+.thmenu[hidden]{display:none}
+.thmenu button{display:flex;align-items:center;gap:10px;border:0;background:none;padding:10px 12px;border-radius:8px;cursor:pointer;text-align:start;font-size:14.5px;min-height:44px}
+.thmenu button:hover{background:var(--soft)}
+.thmenu button[aria-checked="true"]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+@media (max-width:420px){.hdr-in{gap:10px;padding-inline:14px}.hright{gap:8px}.hdr .meta{font-size:12.5px}}
+
+/* question action bar: sticky at the bottom on phones */
+.qbar{margin-top:24px}
+.qbar .qnav{margin-top:0}
+.qbar .hint{margin:0 0 8px;min-height:0}
+.qbar .hint:empty{display:none}
+@media (max-width:560px) and (min-height:520px){
+  .qbar{position:sticky;bottom:0;z-index:3;background:var(--surface);margin:24px -20px -24px;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);border-radius:0 0 var(--r) var(--r)}
+  .qbar .qnav .btn{min-height:48px;flex:1}
+}
+@media (max-width:380px) and (min-height:520px){.qbar{margin:24px -14px -16px;padding-inline:14px}}
+
+/* landing stats on very small screens */
+@media (max-width:420px){
+  .hstats{grid-template-columns:1fr}
+  .hstats div{flex-direction:row;align-items:center;gap:12px;padding:12px 18px;font-size:13.5px}
+  .hstats div+div{border-inline-start:0;border-top:1px solid var(--line)}
+}
+
+/* wish card */
+.facts{margin:0;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))}
+.facts dt{font-size:12px;color:var(--muted)}
+.facts dd{margin:0}
+.lic{display:flex;gap:10px;align-items:flex-start;background:var(--soft);border-radius:12px;padding:12px 14px}
+.lic .ic{color:var(--muted);margin-top:4px}
+.lic h4{margin-bottom:2px}
+.rank.alt{background:var(--soft);color:var(--muted);border:1px dashed var(--line)}
+.rrb{width:100%;border:0;cursor:pointer;text-align:start;font:inherit;color:inherit}
+.rrb:hover{background:var(--accent-soft)}
+.rrb .pill{white-space:normal}
+
+/* print: one dedicated print view, built on beforeprint */
+.pv{display:none}
+.pv.pv-cap{display:block;position:absolute;top:0;left:-30000px;width:794px;padding:28px 30px;background:var(--surface)}
+.pv.pv-cap .chev{display:none}
+.pv.pv-cap ul{list-style:none;padding-inline-start:0}
+.pv.pv-cap li{position:relative;padding-inline-start:16px}
+.pv.pv-cap li::before{content:"•";position:absolute;inset-inline-start:2px;top:0;color:var(--accent);font-weight:700}
+@media print{
+  body.pv-on #app{display:none!important}
+  body.pv-on .pv{display:block;padding:0 8px}
+  .pv .wish{break-inside:auto}
+  .pv .wish summary{break-after:avoid}
+  .pv .chev,.thm,.qbar{display:none!important}
+}
+</style>
+</head>
+<body>
+<header class="hdr"><div class="hdr-in" id="hdr"></div></header>
+<main id="app"></main>
+<div class="foot">سَمْت أداة إرشادية مستقلة وغير تابعة لأي جهة حكومية. النتيجة استرشادية، وراجع أدلة القبول الرسمية والمرشد الطلابي قبل قرارك النهائي.</div>
+<div class="toast" id="toast" role="status"></div>
+<div class="sr" id="live" aria-live="polite"></div>
+<div class="pv" id="pv"></div>
+<script>
+/* ===================== البيانات ===================== */
+const TYPES = {
+  R:{n:'العملي (الواقعي)', s:'العملي', d:'تحب العمل باليد والأدوات والأجهزة، وتفضّل النتائج الملموسة والأنشطة الميدانية على الكلام النظري.'},
+  I:{n:'البحثي (الاستقصائي)', s:'البحثي', d:'تحب الفهم العميق والتحليل وحل المشكلات المعقدة، وتسأل دائمًا "ليش" و"كيف".'},
+  A:{n:'الإبداعي (الفني)', s:'الإبداعي', d:'تحب التصميم والتعبير والأفكار الجديدة، وتضايقك القوالب الجامدة.'},
+  S:{n:'الاجتماعي', s:'الاجتماعي', d:'تحب مساعدة الناس وتعليمهم ورعايتهم، وتستمد طاقتك من التعامل معهم.'},
+  E:{n:'القيادي (المبادر)', s:'القيادي', d:'تحب القيادة والإقناع واتخاذ القرار والمنافسة، وعندك ميول لريادة الأعمال.'},
+  C:{n:'التنظيمي', s:'التنظيمي', d:'تحب الترتيب والدقة والأرقام واتباع نظام واضح، وتلاحظ التفاصيل اللي غيرك يفوّتها.'}
+};
+const ORDER = ['R','I','A','S','E','C'];
+
+const Q = {
+  R:['فك الأجهزة وتركيبها لمعرفة طريقة عملها','إصلاح الأشياء في البيت (كهرباء، سباكة، دراجة، سيارة)','العمل بيدي باستخدام الأدوات والمعدات','العمل في الميدان أو المواقع بدل الجلوس في مكتب طول اليوم','بناء مجسمات أو مشاريع روبوت وأردوينو','فهم طريقة عمل المحركات والآلات','الأنشطة التطبيقية في المعمل أكثر من الشرح النظري'],
+  I:['حل مسائل رياضيات أو فيزياء صعبة','البحث عن سبب حدوث الظواهر العلمية','متابعة محتوى علمي (الفضاء، جسم الإنسان، التقنية)','تحليل مشكلة وتجربة حلول مختلفة حتى أوصل للحل الصحيح','إجراء التجارب في المختبر وتسجيل النتائج','الألغاز والتفكير المنطقي وألعاب مثل الشطرنج','تعلّم البرمجة أو كيف تعمل التقنيات من الداخل'],
+  A:['الرسم أو التصميم (يدويًا أو على برامج مثل كانفا وفوتوشوب)','الكتابة الإبداعية: قصص، خواطر، شعر','تصوير الفيديو أو مونتاجه','تنسيق الأشياء بشكل جميل (غرفة، عرض تقديمي، ملابس)','ابتكار أفكار جديدة غير تقليدية','متابعة العمارة والتصميم الداخلي والديكور','التعبير عن نفسي بطريقتي بدل القوالب الجاهزة'],
+  S:['شرح الدروس لزملائي ومساعدتهم يفهمون','الاستماع لمشاكل الآخرين ومساعدتهم','العمل التطوعي وخدمة المجتمع','الاهتمام بالمرضى أو كبار السن أو الأطفال','العمل ضمن فريق أكثر من العمل لوحدي','التعرف على أشخاص جدد والتعامل معهم','فهم سلوك الناس ودوافعهم'],
+  E:['قيادة فريق أو مجموعة في مشروع','إقناع الآخرين بفكرة أو منتج','البيع والشراء والتفكير في مشروع خاص','الإلقاء والتحدث أمام جمهور','اتخاذ القرارات وتحمّل مسؤوليتها','المنافسة وتحقيق أهداف واضحة','متابعة أخبار الاقتصاد والشركات والأسهم'],
+  C:['ترتيب الملفات والبيانات وتنظيمها','العمل وفق خطوات وتعليمات واضحة','التعامل مع الأرقام والجداول (مثل Excel)','التدقيق ومراجعة التفاصيل لاكتشاف الأخطاء','التخطيط للميزانية ومتابعة المصاريف','الالتزام بالأنظمة والمواعيد بدقة','إعداد التقارير والسجلات المنظمة']
+};
+// ترتيب متداخل للأسئلة حتى لا تأتي أسئلة النوع الواحد متتالية
+const QLIST = [];
+for (let i=0;i<7;i++){ for (let j=0;j<6;j++){ const t = ORDER[(j+i)%6]; QLIST.push({t, q:Q[t][i]}); } }
+
+const LIKERT = ['لا أحبه أبدًا','لا أحبه','محايد','أحبه','أحبه جدًا'];
+
+const SUBJECTS = [
+  {k:'math',n:'الرياضيات'},{k:'phys',n:'الفيزياء'},{k:'chem',n:'الكيمياء'},{k:'bio',n:'الأحياء'},
+  {k:'eng',n:'اللغة الإنجليزية'},{k:'ar',n:'اللغة العربية والكتابة'},{k:'cs',n:'الحاسب والتقنية الرقمية'},
+  {k:'soc',n:'المواد الشرعية والاجتماعية'},{k:'art',n:'التربية الفنية والتصميم'}
+];
+const SUBJ_N = Object.fromEntries(SUBJECTS.map(s=>[s.k,s.n]));
+const SCALE = ['ضعيف جدًا','ضعيف','متوسط','جيد','ممتاز'];
+
+const TRACKS = [
+  {k:'general',n:'المسار العام'},{k:'health',n:'مسار الصحة والحياة'},{k:'cse',n:'مسار علوم الحاسب والهندسة'},
+  {k:'biz',n:'مسار إدارة الأعمال'},{k:'sharia',n:'المسار الشرعي'},{k:'none',n:'لم أتسكّن بعد (السنة المشتركة)'}
+];
+const TRACK_N = Object.fromEntries(TRACKS.map(t=>[t.k,t.n]));
+const ALL_TR = ['general','health','cse','biz','sharia','none'];
+const TR_GROUPS = { health:['general','health','none'], eng:['general','cse','none'], sci:['general','health','cse','none'], all:ALL_TR };
+
+const TIERS = [
+  {k:4,n:'92% فأعلى'},{k:3,n:'من 85% إلى أقل من 92%'},{k:2,n:'من 75% إلى أقل من 85%'},{k:1,n:'أقل من 75%'},{k:0,n:'لا أعرف بعد'}
+];
+const COMP_N = {1:'متاحة نسبيًا',2:'متوسطة',3:'مرتفعة',4:'مرتفعة جدًا'};
+
+const YEARS = [{k:5,n:'4 – 5 سنوات (مع التحضيرية)'},{k:6,n:'حتى 6 سنوات إذا التخصص يستاهل'},{k:99,n:'مستعد لـ 7 سنوات أو أكثر (مثل الطب)'}];
+const ENVS = [{k:'office',n:'مكتب وبيئة منظمة'},{k:'hospital',n:'مستشفى أو عيادة'},{k:'field',n:'ميدان ومواقع ومعامل'},{k:'people',n:'بين الناس (مدرسة، مجتمع، جمهور)'},{k:'flex',n:'ما يفرق معي / عمل مرن'}];
+const ENV_N = Object.fromEntries(ENVS.map(e=>[e.k,e.n]));
+const VALS = [{k:'income',n:'دخل مرتفع'},{k:'stability',n:'استقرار وأمان وظيفي'},{k:'service',n:'خدمة الناس وأثر واضح'},{k:'creative',n:'إبداع وحرية'},{k:'growth',n:'تحدي وتطور سريع'}];
+const VAL_N = Object.fromEntries(VALS.map(v=>[v.k,v.n]));
+
+// التخصصات: code = رمز هولاند (أهم 3 أنواع بالترتيب) — sub = أوزان المواد (1-3) — comp = تقدير تحريري للتنافس (1-4) وليس نسب قبول — tr = مجموعة المسارات المتوقعة (غير موثقة رسميًا لكل الجامعات)
+// lic = الترخيص/التأهيل المهني بعد التخرج — fam = البطاقة تمثل عائلة تخصصات تختلف مسمياتها بين الجامعات
+const M = [
+ {id:'med',n:'الطب البشري',col:'القطاع الصحي',code:'ISR',sub:{bio:3,chem:3,phys:1,math:1,eng:2},env:['hospital'],val:['service','income','stability'],yrs:7,yt:'نحو 7 سنوات شاملة الامتياز (تقريبًا، وتختلف بين الجامعات)',comp:4,tr:'health',
+  d:'دراسة جسم الإنسان والأمراض وتشخيصها وعلاجها، ثم تخصص دقيق بعد التخرج عبر برامج الزمالة.',c:'طبيب عام، ثم التخصص عبر برامج التدريب التخصصي (باطنة، جراحة، أطفال، طوارئ…)',m:'الطريق طويل: بعد البكالوريوس تأتي سنوات التدريب التخصصي، وبعضها يتبعه تخصص دقيق.',lic:'التصنيف والتسجيل المهني في الهيئة السعودية للتخصصات الصحية لممارسة المهنة.',t:'جرّب تطوع أو زيارة مستشفى، واسأل نفسك بصدق: هل أتحمل المناوبات وسنوات الدراسة الطويلة؟'},
+ {id:'dent',n:'طب الأسنان',col:'القطاع الصحي',code:'IRS',sub:{bio:3,chem:2,phys:1,eng:2,art:1},env:['hospital'],val:['income','service'],yrs:7,yt:'7 سنوات شاملة السنة التحضيرية والامتياز (حسب جامعة الملك سعود)',comp:4,tr:'health',
+  d:'تشخيص وعلاج مشاكل الفم والأسنان، ويعتمد كثيرًا على المهارة اليدوية الدقيقة.',c:'طبيب أسنان عام، ثم تخصصات مثل التقويم وجراحة الفم والتركيبات بعد دراسة تخصصية إضافية',lic:'التصنيف والتسجيل المهني في الهيئة السعودية للتخصصات الصحية لممارسة المهنة.',m:'يتيح العمل في القطاع الحكومي أو الخاص أو عيادة خاصة مستقبلًا.',t:'إذا تحب الشغل اليدوي الدقيق مع العلوم، فهذا مؤشر قوي لهذا التخصص.'},
+ {id:'pharm',n:'الصيدلة (دكتور صيدلي)',col:'القطاع الصحي',code:'ICS',sub:{chem:3,bio:2,math:1,eng:2},env:['hospital','office','field'],val:['stability','service','income'],yrs:6,yt:'6 سنوات شاملة السنة الأولى المشتركة والامتياز (حسب جامعة الملك سعود)',comp:3,tr:'health',
+  d:'علم الأدوية: تركيبها وتأثيرها في الجسم وطريقة صرفها واستخدامها بأمان.',c:'صيدلية مجتمعية أو مستشفى، شركات الأدوية، الجهات الرقابية، والصيدلة الإكلينيكية غالبًا تحتاج تدريبًا تخصصيًا إضافيًا',lic:'التصنيف والتسجيل المهني في الهيئة السعودية للتخصصات الصحية لممارسة المهنة.',m:'مجالات العمل متنوعة بين المستشفيات والصناعة والجهات الرقابية.',t:'الكيمياء قلب التخصص — إذا ما تحبها فكّر مرتين.'},
+ {id:'nurs',n:'التمريض',col:'القطاع الصحي',code:'SIR',sub:{bio:2,chem:1,eng:2},env:['hospital'],val:['service','stability'],yrs:5,yt:'4 سنوات + سنة امتياز (حسب جامعة الملك سعود)',comp:2,tr:'health',
+  d:'رعاية المرضى ومتابعة حالتهم وتنفيذ الخطة العلاجية مع الفريق الطبي.',c:'التمريض في المستشفيات، العناية المركزة، الطوارئ، التمريض المجتمعي',m:'',lic:'التصنيف والتسجيل المهني في الهيئة السعودية للتخصصات الصحية لممارسة المهنة.',t:'يناسب من عنده صبر وتعاطف ويتحمل ضغط العمل والمناوبات.'},
+ {id:'pt',n:'العلاج الطبيعي',col:'القطاع الصحي',code:'SRI',sub:{bio:3,phys:1,eng:2},env:['hospital','field'],val:['service','stability'],yrs:6,yt:'5 – 6 سنوات شاملة الامتياز (تقريبًا، وتختلف بين الجامعات)',comp:3,tr:'health',
+  d:'إعادة تأهيل المرضى والمصابين وتحسين الحركة بالتمارين والأجهزة.',c:'أخصائي علاج طبيعي في المستشفيات ومراكز التأهيل والأندية الرياضية',lic:'التصنيف والتسجيل المهني في الهيئة السعودية للتخصصات الصحية لممارسة المهنة.',m:'الاهتمام بالرياضة والتأهيل يوسّع مجالاته.',t:'يجمع بين التعامل مع الناس والعمل الحركي — مناسب لمن يحب الرياضة وجسم الإنسان.'},
+ {id:'lab',n:'علوم المختبرات الإكلينيكية',col:'القطاع الصحي',code:'IRC',sub:{bio:3,chem:2,eng:1},env:['hospital','field'],val:['stability'],yrs:5,yt:'4 سنوات + امتياز (تقريبًا، وتختلف بين الجامعات)',comp:2,tr:'health',
+  d:'تحليل العينات (دم، أنسجة، ميكروبات) لمساعدة الأطباء في التشخيص.',c:'أخصائي مختبر، بنوك الدم، مختبرات الأبحاث',lic:'التصنيف والتسجيل المهني في الهيئة السعودية للتخصصات الصحية لممارسة المهنة.',m:'دور أساسي خلف الكواليس في كل مستشفى.',t:'يناسب من يحب الدقة والمختبر أكثر من التعامل المباشر مع المرضى.'},
+ {id:'rad',n:'الأشعة والتصوير الطبي',col:'القطاع الصحي',code:'RIS',sub:{phys:2,bio:2,eng:1},env:['hospital'],val:['stability','service'],yrs:5,yt:'4 سنوات + امتياز (تقريبًا، وتختلف بين الجامعات)',comp:2,tr:'health',
+  d:'تشغيل أجهزة التصوير الطبي (أشعة سينية، رنين، مقطعية) وضمان جودة الصور.',c:'أخصائي أشعة، تصوير بالرنين أو الأشعة المقطعية حسب البرنامج والتدريب',m:'',lic:'التصنيف والتسجيل المهني في الهيئة السعودية للتخصصات الصحية لممارسة المهنة.',t:'يجمع الفيزياء والأجهزة مع المجال الصحي.'},
+ {id:'nutr',n:'التغذية الإكلينيكية',col:'القطاع الصحي',code:'ISC',sub:{bio:2,chem:2,eng:1},env:['hospital','people'],val:['service'],yrs:5,yt:'4 سنوات + امتياز (تقريبًا، وتختلف بين الجامعات)',comp:2,tr:'health',
+  d:'تصميم الأنظمة الغذائية العلاجية للمرضى وتعزيز الصحة العامة بالتغذية.',c:'أخصائي تغذية في المستشفيات والعيادات والأندية والصناعات الغذائية',lic:'التصنيف والتسجيل المهني في الهيئة السعودية للتخصصات الصحية لممارسة المهنة.',m:'',t:'مناسب لمن يحب الأحياء والكيمياء مع جانب توعوي.'},
+ {id:'ph',n:'الصحة العامة وإدارة الخدمات الصحية',col:'القطاع الصحي',code:'SEC',sub:{bio:1,math:1,eng:2},env:['office','people'],val:['service','stability'],yrs:5,yt:'4 – 5 سنوات حسب البرنامج (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'sci',
+  d:'تخطيط البرامج الصحية وإدارة المنشآت الصحية والوقاية على مستوى المجتمع.',c:'إداري في المستشفيات، الجودة وسلامة المرضى، برامج التوعية الصحية',m:'',fam:1,t:'خيار جيد لمن يحب المجال الصحي بدون علاج مباشر للمرضى.'},
+
+ {id:'civ',n:'الهندسة المدنية',col:'الهندسة',code:'RIC',sub:{math:3,phys:3,eng:1},env:['field','office'],val:['stability','income'],yrs:5,yt:'5 سنوات مع التحضيرية (تقريبًا، وتختلف بين الجامعات)',comp:3,tr:'eng',
+  d:'تصميم وتنفيذ المباني والطرق والجسور ومشاريع المياه.',c:'مهندس موقع، مهندس إنشائي، إدارة مشاريع، مهندس طرق',lic:'الاعتماد المهني من الهيئة السعودية للمهندسين لمزاولة المهنة الهندسية.',m:'مرتبط بحجم المشاريع الإنشائية والبنية التحتية.',t:'جزء كبير من العمل في المواقع — تأكد أن هذا يناسبك.'},
+ {id:'elec',n:'الهندسة الكهربائية',col:'الهندسة',code:'IRC',sub:{math:3,phys:3,cs:1},env:['field','office'],val:['income','growth'],yrs:5,yt:'5 سنوات مع التحضيرية (تقريبًا، وتختلف بين الجامعات)',comp:3,tr:'eng',
+  d:'الطاقة والكهرباء والإلكترونيات والاتصالات وأنظمة التحكم.',c:'مهندس طاقة، اتصالات، إلكترونيات، تحكم آلي',lic:'الاعتماد المهني من الهيئة السعودية للمهندسين لمزاولة المهنة الهندسية.',m:'',t:'من أثقل الهندسات رياضيًا — قوتك في الرياضيات والفيزياء مهمة جدًا.'},
+ {id:'mech',n:'الهندسة الميكانيكية',col:'الهندسة',code:'RIC',sub:{math:3,phys:3},env:['field'],val:['income','stability'],yrs:5,yt:'5 سنوات مع التحضيرية (تقريبًا، وتختلف بين الجامعات)',comp:3,tr:'eng',
+  d:'تصميم الآلات والمحركات وأنظمة التكييف والتصنيع.',c:'مهندس صيانة، تصميم، تكييف، قطاع الطاقة والصناعة',lic:'الاعتماد المهني من الهيئة السعودية للمهندسين لمزاولة المهنة الهندسية.',m:'',t:'مناسب لمن يحب فك الأشياء وفهم الآلات.'},
+ {id:'chemE',n:'الهندسة الكيميائية',col:'الهندسة',code:'IRC',sub:{chem:3,math:3,phys:2},env:['field'],val:['income','stability'],yrs:5,yt:'5 سنوات مع التحضيرية (تقريبًا، وتختلف بين الجامعات)',comp:3,tr:'eng',
+  d:'تحويل المواد الخام إلى منتجات عبر عمليات صناعية: بتروكيماويات، تحلية، أدوية.',c:'مهندس عمليات في البتروكيماويات والطاقة والتحلية',lic:'الاعتماد المهني من الهيئة السعودية للمهندسين لمزاولة المهنة الهندسية.',m:'',t:'يجمع الكيمياء مع الرياضيات — لازم تكون مرتاح مع الاثنين.'},
+ {id:'ind',n:'الهندسة الصناعية',col:'الهندسة',code:'ICE',sub:{math:3,phys:1,cs:1,eng:1},env:['office','field'],val:['growth','income'],yrs:5,yt:'5 سنوات مع التحضيرية (تقريبًا، وتختلف بين الجامعات)',comp:2,tr:'eng',
+  d:'تحسين الأنظمة والعمليات: الإنتاج، الجودة، سلاسل الإمداد، وتقليل الهدر.',c:'مهندس جودة، تخطيط إنتاج، تحسين عمليات، تحليل أنظمة',lic:'الاعتماد المهني من الهيئة السعودية للمهندسين لمزاولة المهنة الهندسية.',m:'',t:'هندسة "إدارية" — مناسبة لمن يحب الأرقام والتنظيم والقيادة.'},
+ {id:'arch',n:'العمارة',col:'العمارة والتخطيط',code:'AIR',sub:{art:3,math:2,phys:1},env:['office','field'],val:['creative'],yrs:5,yt:'5 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:3,tr:'eng',
+  d:'تصميم المباني والفراغات بما يجمع الجمال والوظيفة والإنشاء.',c:'معماري، تصميم حضري، إدارة مشاريع تصميم',lic:'الاعتماد المهني من الهيئة السعودية للمهندسين لمزاولة المهنة الهندسية.',m:'',t:'يحتاج سهر ومشاريع تصميم كثيرة — الشغف بالتصميم شرط أساسي.'},
+
+ {id:'swe',n:'هندسة البرمجيات',col:'الحاسب والتقنية',code:'ICR',sub:{math:2,cs:3,eng:2},env:['office','flex'],val:['growth','income','creative'],yrs:5,yt:'4 – 5 سنوات مع التحضيرية (تقريبًا، وتختلف بين الجامعات)',comp:3,tr:'eng',
+  d:'بناء الأنظمة والتطبيقات الكبيرة بطريقة منهجية: تحليل، تصميم، برمجة، اختبار.',c:'مطور برمجيات، مهندس أنظمة، مطور تطبيقات',m:'',t:'جرّب تتعلم البرمجة الآن من مصادر مجانية — إذا استمتعت بها فهذا أقوى مؤشر.'},
+ {id:'cs',n:'علوم الحاسب',col:'الحاسب والتقنية',code:'ICR',sub:{math:3,cs:3,eng:2},env:['office','flex'],val:['growth','income'],yrs:5,yt:'4 – 5 سنوات مع التحضيرية (تقريبًا، وتختلف بين الجامعات)',comp:3,tr:'eng',
+  d:'أساسيات الحوسبة: الخوارزميات والبرمجة وهياكل البيانات والذكاء الاصطناعي.',c:'مبرمج، مهندس برمجيات، باحث ذكاء اصطناعي',m:'',t:'أكثر نظرية ورياضيات من هندسة البرمجيات.'},
+ {id:'cyber',n:'الأمن السيبراني',col:'الحاسب والتقنية',code:'ICR',sub:{cs:3,math:2,eng:2},env:['office'],val:['growth','stability','income'],yrs:5,yt:'4 – 5 سنوات مع التحضيرية (تقريبًا، وتختلف بين الجامعات)',comp:3,tr:'eng',
+  d:'حماية الأنظمة والشبكات والبيانات من الاختراق والهجمات.',c:'محلل أمن، اختبار اختراق، مركز عمليات الأمن (SOC)',m:'',t:'يناسب من يحب التحدي والتفكير مثل "المهاجم" لحماية الأنظمة.'},
+ {id:'ds',n:'علم البيانات والذكاء الاصطناعي',col:'الحاسب والتقنية',code:'ICR',sub:{math:3,cs:3,eng:2},env:['office','flex'],val:['growth','income'],yrs:5,yt:'4 – 5 سنوات مع التحضيرية (تقريبًا، وتختلف بين الجامعات)',comp:3,tr:'eng',
+  d:'استخراج المعرفة من البيانات وبناء نماذج تتعلم وتتنبأ.',c:'عالم بيانات، مهندس تعلم آلة، محلل بيانات',m:'',fam:1,t:'الإحصاء والرياضيات أساس هذا التخصص — مو برمجة بس.'},
+ {id:'is',n:'نظم المعلومات',col:'الحاسب والتقنية',code:'CIE',sub:{cs:2,math:1,eng:2},env:['office'],val:['stability','growth'],yrs:5,yt:'4 – 5 سنوات مع التحضيرية (تقريبًا، وتختلف بين الجامعات)',comp:2,tr:'all',
+  d:'الربط بين التقنية والأعمال: تحليل احتياجات المنشأة وتصميم أنظمتها وإدارة بياناتها.',c:'محلل أعمال، محلل أنظمة، محلل بيانات، مدير مشاريع تقنية',m:'',t:'مناسب لمن يحب التقنية لكن ما يبي برمجة عميقة طول الوقت. بعض الجامعات تشترط مسارًا علميًا — تأكد.'},
+
+ {id:'acc',n:'المحاسبة',col:'إدارة الأعمال',code:'CEI',sub:{math:2,eng:2},env:['office'],val:['stability','income'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:2,tr:'all',
+  d:'تسجيل العمليات المالية وإعداد القوائم المالية والمراجعة والزكاة والضريبة.',c:'محاسب، مراجع، محلل مالي، أخصائي زكاة وضريبة',m:'الشهادات المهنية ترفع فرصك، وما هي شرط عام للتوظيف.',lic:'شهادة زمالة الهيئة السعودية للمراجعين والمحاسبين شهادة مهنية اختيارية تقوّي مسارك، خصوصًا في المراجعة.',t:'الدقة والصبر على التفاصيل أهم من حب الرياضيات المعقدة.'},
+ {id:'fin',n:'المالية',col:'إدارة الأعمال',code:'ECI',sub:{math:2,eng:2},env:['office'],val:['income','growth'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:2,tr:'all',
+  d:'إدارة الأموال والاستثمار والبنوك وتقييم الشركات.',c:'محلل مالي، مصرفي، إدارة استثمار، تمويل الشركات',m:'',t:'مناسب لمن يتابع الأسهم والاقتصاد ويحب الأرقام.'},
+ {id:'bus',n:'إدارة الأعمال',col:'إدارة الأعمال',code:'ESC',sub:{eng:2,math:1,ar:1},env:['office','people'],val:['growth','income'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'أساسيات إدارة المنظمات: الإدارة، التسويق، المالية، الموارد البشرية، الريادة.',c:'إداري، مشرف عمليات، رائد أعمال، أخصائي مشاريع',m:'',t:'تخصص واسع — قوتك فيه تأتي من المهارات والتدريب والشهادات اللي تضيفها بنفسك.'},
+ {id:'mkt',n:'التسويق',col:'إدارة الأعمال',code:'EAS',sub:{eng:2,ar:1,art:1},env:['office','people'],val:['creative','growth'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'فهم العميل وبناء العلامات التجارية والحملات الإعلانية والتسويق الرقمي.',c:'أخصائي تسويق رقمي، إدارة علامة تجارية، أبحاث سوق',m:'',t:'يجمع الإبداع مع الإقناع والأرقام.'},
+ {id:'hr',n:'إدارة الموارد البشرية',col:'إدارة الأعمال',code:'SEC',sub:{ar:2,eng:1,soc:1},env:['office','people'],val:['stability','service'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'استقطاب الموظفين وتطويرهم وإدارة الأنظمة والرواتب وبيئة العمل.',c:'أخصائي توظيف، تدريب وتطوير، شؤون موظفين',m:'',t:'مناسب لمن يحب الناس مع التنظيم.'},
+ {id:'scm',n:'سلاسل الإمداد والخدمات اللوجستية',col:'إدارة الأعمال',code:'CER',sub:{math:2,eng:2},env:['office','field'],val:['growth','stability'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:2,tr:'all',
+  d:'إدارة حركة البضائع من المورد للعميل: النقل، المستودعات، المشتريات.',c:'أخصائي مشتريات، تخطيط لوجستي، إدارة مستودعات',m:'اللوجستيات من القطاعات ذات الأولوية في رؤية 2030، وهذا مؤشر على الاهتمام بالقطاع وما يعني ضمان وظيفة.',t:'يناسب من يحب التخطيط والتنظيم والحلول العملية.'},
+ {id:'econ',n:'الاقتصاد',col:'إدارة الأعمال',code:'ICE',sub:{math:2,soc:2,eng:2},env:['office'],val:['growth'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'تحليل كيف يتخذ الأفراد والدول قرارات الإنتاج والاستهلاك والسياسات الاقتصادية.',c:'محلل اقتصادي، باحث، جهات حكومية ومالية',m:'',t:'نظري وتحليلي — مناسب لمن يحب "ليش يصير كذا" في الاقتصاد.'},
+
+ {id:'law',n:'القانون (الأنظمة)',col:'الأنظمة والعلوم الإنسانية',code:'ESI',sub:{ar:3,soc:2,eng:1},env:['office','people'],val:['income','stability'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:2,tr:'all',
+  d:'دراسة الأنظمة والتشريعات وتطبيقها في القضايا والعقود.',c:'مستشار أو باحث قانوني في الجهات الحكومية والشركات، والمحاماة بعد الترخيص',m:'',lic:'مزاولة المحاماة تحتاج ترخيصًا من وزارة العدل بعد استيفاء متطلبات المؤهل والخبرة والشروط النظامية.',t:'يحتاج قراءة كثيرة وقدرة على الحجة والكتابة.'},
+ {id:'sharia',n:'الشريعة والدراسات الإسلامية',col:'الأنظمة والعلوم الإنسانية',code:'SIC',sub:{soc:3,ar:3},env:['people','office'],val:['service','stability'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'العلوم الشرعية: الفقه وأصوله والعقيدة والتفسير والحديث.',c:'تعليم، دعوة، استشارات شرعية في المصارف، والتوثيق بعد استيفاء شروطه',m:'',fam:1,t:'مناسب لمن عنده حب حقيقي للعلم الشرعي والقراءة.'},
+ {id:'psy',n:'علم النفس',col:'الأنظمة والعلوم الإنسانية',code:'SIA',sub:{soc:2,bio:1,ar:1,eng:1},env:['people','hospital'],val:['service'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:2,tr:'all',
+  d:'فهم السلوك والعمليات العقلية والإرشاد والقياس النفسي.',c:'أخصائي نفسي (بعد الترخيص)، مرشد، موارد بشرية، أبحاث',m:'',t:'العمل الإكلينيكي غالبًا يحتاج تدريب إضافي وترخيص مهني.'},
+ {id:'sw',n:'الخدمة الاجتماعية',col:'الأنظمة والعلوم الإنسانية',code:'SEC',sub:{soc:2,ar:2},env:['people'],val:['service','stability'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'مساعدة الأفراد والأسر والمجتمعات في حل مشاكلهم الاجتماعية.',c:'أخصائي اجتماعي في المدارس والجمعيات، وفي المستشفيات بعد التصنيف المهني',m:'',t:'يناسب من يحب المساعدة المباشرة للناس.'},
+ {id:'media',n:'الإعلام والاتصال',col:'الأنظمة والعلوم الإنسانية',code:'AES',sub:{ar:3,eng:1,art:2},env:['people','flex'],val:['creative','growth'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'صناعة المحتوى، الصحافة، العلاقات العامة، الإعلام الرقمي.',c:'صانع محتوى، علاقات عامة، مذيع، محرر',m:'',t:'ابدأ ببناء محتوى أو ملف أعمال من الآن — هو أهم من الشهادة.'},
+ {id:'trans',n:'اللغة الإنجليزية والترجمة',col:'الأنظمة والعلوم الإنسانية',code:'ASC',sub:{eng:3,ar:2},env:['office','flex'],val:['creative','stability'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'إتقان اللغة وآدابها والترجمة التحريرية والفورية.',c:'مترجم، محرر محتوى، علاقات دولية، والتدريس بعد استيفاء شروطه',m:'',fam:1,t:'مستواك الحالي في الإنجليزي مؤشر مهم.'},
+ {id:'edu',n:'التعليم (إعداد المعلم)',col:'الأنظمة والعلوم الإنسانية',code:'SAC',sub:{ar:2,soc:1},env:['people'],val:['service','stability'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'إعداد المعلم في تخصص معين مع طرق التدريس وعلم النفس التربوي.',c:'معلم، مدرب، مشرف تربوي',m:'',t:'تأكد من الشروط الحالية للعمل في التعليم قبل الاختيار.',lic:'العمل معلمًا يتطلب الرخصة المهنية للوظائف التعليمية من هيئة تقويم التعليم والتدريب.'},
+
+ {id:'gd',n:'التصميم الجرافيكي والفنون البصرية',col:'التصاميم والفنون',code:'AER',sub:{art:3,cs:1},env:['office','flex'],val:['creative'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'تصميم الهويات البصرية والإعلانات والواجهات والوسائط الرقمية.',c:'مصمم جرافيك، مصمم واجهات UI/UX، مصمم موشن',m:'',fam:1,t:'ملف الأعمال (Portfolio) هو اللي يوظّفك — ابدأ فيه من الآن.'},
+ {id:'intd',n:'التصميم الداخلي',col:'التصاميم والفنون',code:'ARE',sub:{art:3,math:1},env:['field','office'],val:['creative'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'تصميم الفراغات الداخلية: الأثاث والإضاءة والألوان والمواد.',c:'مصمم داخلي، منسق مشاريع، تصميم معارض',m:'',t:'يجمع الذوق الفني مع الجانب العملي.'},
+ {id:'tour',n:'السياحة والضيافة',col:'السياحة',code:'ESR',sub:{eng:3,ar:1},env:['people','field'],val:['growth'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'إدارة الفنادق والفعاليات والوجهات السياحية وخدمة الضيوف.',c:'إدارة فنادق، تنظيم فعاليات، والإرشاد السياحي بعد الترخيص',m:'السياحة من القطاعات ذات الأولوية في رؤية 2030، وهذا ما يعني ضمان وظيفة.',fam:1,t:'الإنجليزي ومهارات التعامل مع الناس أساسية.'},
+ {id:'sport',n:'علوم الرياضة والنشاط البدني',col:'علوم الرياضة',code:'SRE',sub:{bio:2},env:['people','field'],val:['service','growth'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'all',
+  d:'التدريب الرياضي، فسيولوجيا الجهد، والإدارة الرياضية.',c:'مدرب، أخصائي لياقة، إدارة رياضية، وتدريس التربية البدنية بعد استيفاء شروطه',m:'',t:'مناسب إذا الرياضة جزء حقيقي من حياتك.'},
+
+ {id:'math',n:'الرياضيات والإحصاء',col:'العلوم',code:'ICR',sub:{math:3,cs:1},env:['office'],val:['growth'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'sci',
+  d:'الرياضيات البحتة والتطبيقية والإحصاء.',c:'إحصائي، محلل بيانات، اكتواري (بشهادات إضافية)، والتدريس بعد استيفاء شروطه',m:'',fam:1,t:'أقوى طريق له اليوم: الإحصاء وتحليل البيانات.'},
+ {id:'phys',n:'الفيزياء',col:'العلوم',code:'IRC',sub:{phys:3,math:3},env:['field','office'],val:['growth'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'sci',
+  d:'فهم قوانين الطبيعة من الذرة إلى الفضاء.',c:'باحث، طاقة، فيزياء طبية (بتأهيل إضافي)، تعليم',m:'',t:'العلوم البحتة غالبًا تحتاج دراسات عليا لفرص أقوى.'},
+ {id:'chem',n:'الكيمياء',col:'العلوم',code:'IRC',sub:{chem:3,math:1,bio:1},env:['field'],val:['stability'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'sci',
+  d:'تركيب المواد وتفاعلاتها وطرق تحليلها.',c:'كيميائي في المختبرات والصناعة، الجودة، البتروكيماويات',m:'',t:'العلوم البحتة غالبًا تحتاج دراسات عليا لفرص أقوى.'},
+ {id:'bio',n:'الأحياء والتقنية الحيوية',col:'العلوم',code:'IRS',sub:{bio:3,chem:2},env:['field'],val:['growth'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'sci',
+  d:'الكائنات الحية والوراثة والتقنية الحيوية.',c:'باحث، مختبرات بحثية، صناعات دوائية وغذائية (المختبرات الطبية في المستشفيات لها تخصص مستقل)',m:'',fam:1,t:'بديل قوي إذا تحب الأحياء والقبول في الطب صعب.'},
+ {id:'geo',n:'الجيولوجيا وعلوم الأرض',col:'العلوم',code:'RIC',sub:{chem:2,phys:1,math:1},env:['field'],val:['growth'],yrs:4,yt:'4 سنوات (تقريبًا، وتختلف بين الجامعات)',comp:1,tr:'sci',
+  d:'دراسة الأرض والصخور والمعادن والمياه الجوفية.',c:'جيولوجي في التعدين والنفط والمياه',m:'',t:'عمل ميداني كثير — مناسب لمن يحب الخروج من المكتب.'}
+];
+
+
+/* ===================== بيانات إضافية (v3) ===================== */
+// الميول: 5 عبارات لكل نمط = 30
+const QL = [];
+for (let i=0;i<5;i++){ for (let j=0;j<6;j++){ const t = ORDER[(j+i)%6]; QL.push({t, q:Q[t][i]}); } }
+const AGREE = ['أوافق بشدة','أوافق','محايد','لا أوافق','لا أوافق بشدة']; // القيم 4..0
+
+const DOM_N = {health:'الصحية',eng:'الهندسية',code:'البرمجية',data:'تحليل البيانات',biz:'الأعمال والإدارة',law:'الأنظمة والقانون',care:'مساعدة الناس',edu:'التعليم والشرح',design:'التصميم',media:'الإعلام والمحتوى',sci:'العلوم'};
+const MDOM = {med:['health'],dent:['health'],pharm:['health','sci'],nurs:['health','care'],pt:['health','care'],lab:['health','sci'],rad:['health','eng'],nutr:['health','care'],ph:['health','biz'],
+ civ:['eng'],elec:['eng'],mech:['eng'],chemE:['eng','sci'],ind:['eng','biz','data'],arch:['eng','design'],
+ swe:['code'],cs:['code','data'],cyber:['code'],ds:['data','code'],is:['data','biz'],
+ acc:['biz','data'],fin:['biz','data'],bus:['biz'],mkt:['biz','media','design'],hr:['biz','care'],scm:['biz'],econ:['biz','data'],
+ law:['law'],sharia:['law','edu'],psy:['care'],sw:['care'],media:['media'],trans:['media','edu'],edu:['edu','care'],
+ gd:['design'],intd:['design'],tour:['biz','care'],sport:['care','health'],
+ math:['data','sci'],phys:['sci','eng'],chem:['sci'],bio:['sci','health'],geo:['sci']};
+
+// اختيار بين نشاطين
+const PAIRS = [
+ {a:{t:'C',x:'التعامل مع البيانات والأرقام وتحليلها',s:'مثل تحليل المبيعات أو التخطيط المالي'},b:{t:'S',x:'العمل مع الناس وتقديم المساعدة لهم',s:'مثل الإرشاد أو التعليم أو الرعاية'}},
+ {a:{t:'A',x:'تصميم شيء جديد بشكل جميل',s:'مثل شعار أو غرفة أو عرض تقديمي'},b:{t:'R',x:'بناء أو تركيب شيء يشتغل فعلًا',s:'مثل جهاز أو مجسم أو قطعة أثاث'}},
+ {a:{t:'E',x:'قيادة اجتماع وإقناع الحضور برأيك',s:'مثل عرض فكرة مشروع أمام لجنة'},b:{t:'I',x:'البحث في موضوع لحالك حتى تفهمه تمامًا',s:'مثل قراءة دراسات ومقارنة مصادر'}},
+ {a:{t:'C',x:'تنظيم جدول أو ملف بدقة',s:'مثل جدول مذاكرة أو سجل مصاريف'},b:{t:'A',x:'ابتكار فكرة غير مألوفة',s:'مثل فكرة فعالية أو محتوى مختلف'}},
+ {a:{t:'S',x:'رعاية شخص والاهتمام فيه',s:'مثل مرافقة مريض أو مساعدة كبير سن'},b:{t:'R',x:'إصلاح جهاز أو آلة متعطلة',s:'مثل جوال أو دراجة أو مكيف'}},
+ {a:{t:'E',x:'إدارة مشروع وبيع منتج',s:'مثل متجر إلكتروني صغير'},b:{t:'I',x:'تحليل سبب نجاح أو فشل مشروع',s:'مثل دراسة بيانات العملاء'}}
+];
+
+// تحديات تكشف طريقة التفكير
+const CH = [
+ {q:'مدرستك تعاني من ازدحام شديد وقت خروج الطلاب. وش أول شيء تسويه؟',o:[
+   {x:'أجمع بيانات أوقات الخروج وأعداد الطلاب عند كل بوابة وأحللها',t:'I',d:['data']},
+   {x:'أعيد تصميم مسارات الحركة وتوزيع البوابات',t:'R',d:['eng','design']},
+   {x:'أتواصل مع الطلاب وأفهم وش يضايقهم وأسوي حملة توعية',t:'S',d:['care','edu']},
+   {x:'أعرض خطة على الإدارة وأقود فريق ينفذها',t:'E',d:['biz']}]},
+ {q:'صديقك يبي يفتح مشروع قهوة صغير. وش الجزء اللي تحب تساعده فيه؟',o:[
+   {x:'أحسب التكاليف والأرباح المتوقعة وأسوي له ميزانية',t:'C',d:['biz','data']},
+   {x:'أصمم الهوية والمنيو وشكل المكان',t:'A',d:['design']},
+   {x:'أدرس المنافسين وآراء العملاء وأطلع بنتيجة',t:'I',d:['data','biz']},
+   {x:'أتفاوض مع الموردين وأسوّق المشروع',t:'E',d:['biz','media']}]},
+ {q:'جدك يشتكي من آلام متكررة ومواعيد أدويته متلخبطة. كيف تساعده؟',o:[
+   {x:'أفهم أعراضه وأبحث عن الأسباب المحتملة قبل موعد الطبيب',t:'I',d:['health','sci']},
+   {x:'أرتب له جدول أدوية واضح مع تنبيهات',t:'C',d:['health']},
+   {x:'أجلس معه وأتابع حالته وأطمنه',t:'S',d:['care','health']},
+   {x:'أبرمج له تطبيق بسيط يذكّره بمواعيده',t:'R',d:['code']}]},
+ {q:'جهاز في البيت تعطل فجأة (المكيف أو الراوتر). وش تسوي؟',o:[
+   {x:'أفكه وأحاول أصلحه بنفسي',t:'R',d:['eng']},
+   {x:'أبحث عن المشكلة وأفهم سببها قبل أي خطوة',t:'I',d:['eng','sci']},
+   {x:'أتواصل مع الشركة وأتابع الضمان لين ينحل',t:'E',d:['law','biz']},
+   {x:'أوثق المشكلة ورقم الطلب ومواعيد الصيانة',t:'C',d:[]}]},
+ {q:'المدرسة بتسوي حملة توعية عن الأمن الرقمي. وش دورك اللي تختاره؟',o:[
+   {x:'أصمم البوسترات والفيديو',t:'A',d:['design','media']},
+   {x:'أقدّم ورشة وأشرح للطلاب بنفسي',t:'S',d:['edu','care']},
+   {x:'أجرّب أكتشف ثغرات بسيطة وأوضح كيف نحمي حساباتنا',t:'I',d:['code']},
+   {x:'أنظم الحملة وأوزع المهام وأتابع الفريق',t:'E',d:['biz']}]},
+ {q:'صار خلاف بين اثنين في فريق مشروعكم والتسليم قريب. كيف تتصرف؟',o:[
+   {x:'أسمع من الطرفين وأحاول أفهم مشاعرهم',t:'S',d:['care']},
+   {x:'أرجع لتوزيع المهام المتفق عليه وأطبقه على الكل',t:'C',d:['law']},
+   {x:'أتخذ قرار سريع كقائد للفريق عشان نلحق',t:'E',d:['biz']},
+   {x:'أقترح طريقة عمل جديدة تخلي كل واحد يشتغل على جزء يحبه',t:'A',d:['design']}]},
+ {q:'شارعكم تتجمع فيه مياه الأمطار كل سنة. وش أول خطوة لك؟',o:[
+   {x:'أدرس ميول الشارع والتصريف وأقترح حل هندسي',t:'R',d:['eng']},
+   {x:'أصوّر المواقع وأحلل أكثر الأماكن تضررًا على خريطة',t:'I',d:['data']},
+   {x:'أكتب خطاب رسمي للبلدية وأتابعه',t:'E',d:['law']},
+   {x:'أجمع الجيران لمبادرة تطوعية',t:'S',d:['care']}]},
+ {q:'عندك ساعة فاضية في مكتبة كبيرة. لأي رف تروح؟',o:[
+   {x:'العلوم والفضاء وجسم الإنسان',t:'I',d:['sci','health']},
+   {x:'الفنون والتصميم والعمارة',t:'A',d:['design']},
+   {x:'الاقتصاد وريادة الأعمال',t:'E',d:['biz']},
+   {x:'علم النفس وفهم الناس',t:'S',d:['care']}]}
+];
+
+// جرّب التخصص: مهام مصغرة
+const TASKS = [
+ {id:'t_med',field:'الطب',ic:'heart',dom:['health'],kind:'order',
+  title:'أنت طبيب في الطوارئ',
+  intro:'وصلك ثلاثة مرضى في نفس الوقت. رتّبهم حسب أولوية الفحص: اضغط على المريض الأول ثم الثاني ثم الثالث. (موقف مبسّط للتدريب، مو بروتوكول طبي)',
+  items:['رجل عمره 55 سنة، ألم شديد في الصدر وتعرّق','طفلة عندها ضيق تنفس وصوت صفير','شاب عنده كسر في إصبع يده'],
+  correct:[0,1,2], alt:[[1,0,2]], altNote:'أو تقديم الطفلة على الرجل، المهم أن كسر الإصبع آخر شيء',
+  explain:'ألم الصدر مع التعرق قد يكون جلطة قلبية، وضيق التنفس مع الصفير عند الطفلة قد يتدهور بسرعة، والاثنين أولوية عالية. اللي يحسم بينهم في الواقع هو العلامات الحيوية والتقييم السريع، لذلك نقبل الترتيبين. أما كسر الإصبع فمؤلم لكنه مستقر غالبًا فيجي آخر. هذا اسمه "الفرز" وهو من أساسيات طب الطوارئ.'},
+ {id:'t_eng',field:'الهندسة',ic:'gear',dom:['eng'],kind:'choice',
+  title:'صمّم جسر مشاة',
+  intro:'عندك نفس كمية الحديد لثلاثة تصاميم. في نموذج مبسّط (وصلات مثالية وحمل على الجسر)، أي تصميم يتحمل حمل أكبر؟',
+  opts:['bridge_flat','bridge_truss','bridge_rect'],labels:['عارضة مستقيمة','هيكل مثلثات','هيكل مربعات'],
+  correct:1,
+  explain:'في النموذج المبسّط، المثلث المكوّن من قضبان بوصلات مفصلية ما يتغير شكله إلا إذا تغيّر طول أضلاعه، فيحوّل الحمل لشد وضغط في الأعضاء. أما المربع بنفس الوصلات فيميل وينضغط. هذي فكرة "الجملون" (Truss)، ومن أول المفاهيم في الهندسة الإنشائية.'},
+ {id:'t_data',field:'علوم البيانات',ic:'chart',dom:['data'],kind:'choice',chart:[['الأحد',120],['الاثنين',70],['الثلاثاء',100],['الأربعاء',98],['الخميس',160]],
+  title:'حلّل مبيعات المقصف',
+  intro:'المقصف يجهّز 120 سندويتش كل يوم. هذي عدد الطلبات المسجلة كل يوم في الأسبوع الماضي. وش أفضل قرار؟',
+  opts:['يقلل الكمية يوم الاثنين ويزيدها يوم الخميس','يزيد الكمية في كل الأيام','يثبت 120 لأنها متوسط معقول','يقفل المقصف يوم الاثنين'],
+  correct:0,
+  explain:'يوم الاثنين انطلب 70 فقط، فيزيد 50 سندويتش، ويوم الخميس انطلب 160 والمجهّز 120، فبقي 40 طلب ما انخدم. القرار المبني على البيانات يوزع الكمية حسب الطلب الفعلي لكل يوم (بشرط يتكرر النمط أكثر من أسبوع).'},
+ {id:'t_code',field:'البرمجة وعلوم الحاسب',ic:'code',dom:['code'],kind:'choice',
+  code:'س → 1\nكرّر 3 مرات:\n    س → س × 2\nاطبع س',
+  title:'تتبّع البرنامج',
+  intro:'هذا برنامج بسيط. وش الرقم اللي بيطبعه؟',
+  opts:['6','8','3','2'],correct:1,
+  explain:'س تبدأ 1، وبعد كل تكرار تتضاعف: 2 ثم 4 ثم 8. تتبّع الكود خطوة خطوة هو أول مهارة يتعلمها المبرمج.'},
+ {id:'t_biz',field:'إدارة الأعمال',ic:'brief',dom:['biz'],kind:'choice',
+  table:[['السعر','عدد الأكواب المباعة'],['8 ريال','100'],['10 ريال','80'],['12 ريال','50']],
+  title:'سعّر منتجك',
+  intro:'تكلفة كوب القهوة عليك 5 ريال. هذي توقعات المبيعات حسب السعر. في حساب مبسّط (بدون إيجار ورواتب)، أي سعر يعطيك أعلى ربح؟',
+  opts:['8 ريال','10 ريال','12 ريال'],correct:1,
+  explain:'الربح = (السعر − التكلفة) × العدد: عند 8 ريال الربح 300، وعند 10 ريال 400، وعند 12 ريال 350. أعلى سعر ما يعني دائمًا أعلى ربح.'},
+ {id:'t_law',field:'القانون والأنظمة',ic:'scale',dom:['law'],kind:'choice',
+  rule:'قاعدة افتراضية لهذا النشاط (مو من نظام حقيقي): يُمنع استخدام الجوال داخل قاعة الاختبار، ويُستثنى من ذلك حالات الطوارئ بعد إذن المراقب.',
+  title:'احكم في القضية',
+  intro:'طالب استخدم جواله داخل القاعة ليتصل بأهله لأن أخوه دخل المستشفى، لكنه ما استأذن المراقب. هل خالف النظام؟',
+  opts:['لا، لأنها حالة طوارئ','نعم، لأن الاستثناء مشروط بإذن المراقب','لا، لأن نيته طيبة','نعم، لأن الجوال ممنوع في كل الحالات'],correct:1,
+  explain:'الاستثناء له شرطان: حالة طوارئ + إذن المراقب. تحقق الأول فقط، فالمخالفة قائمة، وقد تُراعى الظروف عند تحديد العقوبة. قراءة النص بدقة والتفريق بين القاعدة والاستثناء هو جوهر دراسة القانون.'},
+ {id:'t_edu',field:'التعليم والإرشاد',ic:'book',dom:['edu','care'],kind:'choice',
+  title:'اشرح لطالب أصغر منك',
+  intro:'طالب في سادس ابتدائي ما فهم معنى الكسر ¾. أي طريقة شرح أقرب توصل له؟',
+  opts:['أعطيه التعريف: البسط مقسوم على المقام','أقسم بيتزا إلى 4 قطع وأخليه ياخذ 3','أعطيه 20 مسألة يحلها لين يتعود','أقول له يحفظ القاعدة وبيفهمها بعدين'],correct:1,
+  explain:'الربط بشيء ملموس قبل التجريد هو أساس طرق التدريس الفعالة. المعلم والمرشد الناجح يبدأ من عالم الطالب.'}
+];
+const ordOk = (t,pick) => [t.correct, ...(t.alt||[])].some(c=>JSON.stringify(c)===JSON.stringify(pick));
+const ENJOY = ['ما عجبتني','عادية','لا بأس','عجبتني','استمتعت جدًا'];
+
+// أسئلة تمييز بين التخصصات المتقاربة
+const DISC = [
+ {a:'swe',b:'cs',q:'لو اشتغلت على تطبيق، وش يشدك أكثر؟',oa:'تنظيم المشروع: تقسيم المهام والاختبار وتسليم منتج يستخدمه الناس',ob:'الخوارزمية نفسها: كيف أخليها أسرع وأذكى وأثبت صحتها'},
+ {a:'ds',b:'cs',q:'أي مهمة أمتع لك؟',oa:'أكتشف نمط في بيانات حقيقية وأتنبأ بالمستقبل',ob:'أفهم كيف يشتغل الحاسب والبرمجيات من الأساس'},
+ {a:'cyber',b:'swe',q:'في نظام إلكتروني جديد، وش تحب تسوي؟',oa:'أدوّر الثغرات وأفكر كيف ممكن أحد يخترقه',ob:'أبني فيه ميزات جديدة'},
+ {a:'is',b:'cs',q:'في شركة تبي نظام جديد، وين تشوف نفسك؟',oa:'أفهم احتياج الشركة وأقترح النظام المناسب وأتابع تطبيقه',ob:'أكتب الكود بنفسي من الصفر'},
+ {a:'ds',b:'math',q:'وش تفضل؟',oa:'أطبّق الإحصاء بالبرمجة على بيانات حقيقية',ob:'أتعمق في النظريات والبراهين الرياضية'},
+ {a:'med',b:'dent',q:'أي طبيعة عمل تناسبك أكثر؟',oa:'تشخيص حالات متنوعة تخص جسم الإنسان كامل',ob:'عمل يدوي دقيق في مجال محدد وتشوف النتيجة مباشرة'},
+ {a:'med',b:'pharm',q:'في علاج مريض، أي دور يشدك أكثر؟',oa:'أفحص المريض وأقرر التشخيص والخطة',ob:'أتعمق في الدواء: كيف يشتغل وتداخلاته وجرعاته'},
+ {a:'nurs',b:'pt',q:'أي يوم عمل تفضل؟',oa:'رعاية المرضى ومتابعتهم طوال اليوم في القسم',ob:'جلسات تأهيل وتمارين تشوف فيها تحسن حركة المريض'},
+ {a:'lab',b:'nurs',q:'وش يريحك أكثر؟',oa:'المختبر والتحاليل بعيد عن ضغط التعامل المباشر',ob:'التعامل المباشر مع المريض وأسرته'},
+ {a:'civ',b:'arch',q:'في مشروع مبنى جديد، وش تختار؟',oa:'أحسب الأحمال وأتأكد أن المبنى آمن ويتحمل',ob:'أرسم شكل المبنى وتجربة الناس داخله'},
+ {a:'elec',b:'mech',q:'أي عالم يشدك؟',oa:'دوائر وإلكترونيات وإشارات ما تشوفها بعينك',ob:'آلات ومحركات تتحرك قدامك'},
+ {a:'ind',b:'mech',q:'في مصنع كبير، وش تحب تسوي؟',oa:'أحسّن طريقة العمل في المصنع كامل وأقلل الهدر',ob:'أصمم وأطور آلة معينة'},
+ {a:'chemE',b:'chem',q:'أي بيئة تناسبك؟',oa:'تطبيق الكيمياء في مصانع ومشاريع ضخمة',ob:'التجارب والتحليل الدقيق في المختبر'},
+ {a:'acc',b:'fin',q:'مع أموال شركة، وش تفضل؟',oa:'أتأكد أن كل رقم صحيح والحسابات مضبوطة',ob:'أقرر وين نستثمر وأوازن بين المخاطرة والعائد'},
+ {a:'econ',b:'fin',q:'وش يهمك أكثر؟',oa:'كيف يتحرك اقتصاد الدولة والأسواق كاملة',ob:'كيف تدير شركة أموالها واستثماراتها'},
+ {a:'bus',b:'mkt',q:'في شركة ناشئة، أي دور تختار؟',oa:'إدارة الفريق وتشغيل العمليات اليومية',ob:'جذب العملاء وبناء العلامة التجارية'},
+ {a:'hr',b:'bus',q:'وش يشدك في الإدارة؟',oa:'الناس: توظيفهم وتطويرهم وحل مشاكلهم',ob:'الصورة الكاملة: الخطط والأرقام والنمو'},
+ {a:'law',b:'sharia',q:'أي مجال قراءة تحبه أكثر؟',oa:'الأنظمة والعقود والقضايا التجارية',ob:'الفقه وأصوله والعلوم الشرعية'},
+ {a:'psy',b:'sw',q:'كيف تحب تساعد الناس؟',oa:'أفهم وش يدور في عقل الإنسان ودوافعه',ob:'مساعدة عملية للأسر والمجتمع في ظروفهم'},
+ {a:'gd',b:'media',q:'في حملة إعلانية، وش دورك؟',oa:'أصمم الصورة والشكل البصري',ob:'أكتب القصة وأقدّم المحتوى'},
+ {a:'gd',b:'arch',q:'أي نوع تصميم تفضّل؟',oa:'تصميم رقمي على الشاشة',ob:'تصميم مبانٍ وفراغات حقيقية'},
+ {a:'edu',b:'psy',q:'وش يسعدك أكثر؟',oa:'أشوف طالب فهم الدرس بسببي',ob:'أفهم سبب سلوك شخص وأساعده يتغير'},
+ {a:'bio',b:'med',q:'لو تحب الأحياء، وش تفضل؟',oa:'البحث والمختبر واكتشاف أشياء جديدة',ob:'التعامل مع المرضى وعلاجهم مباشرة'}
+];
+
+/* ===================== أيقونات ===================== */
+const IC = {
+  heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1L7 17M17 7l2.1-2.1"/>',
+  chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  code:'<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/>',
+  brief:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>',
+  scale:'<path d="M12 3v18M5 21h14M6 7h12M6 7l-3 7a3 3 0 0 0 6 0zM18 7l-3 7a3 3 0 0 0 6 0z"/>',
+  book:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5"/>',
+  target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
+  cap:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/>',
+  bulb:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  list:'<path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/>',
+  puzzle:'<path d="M10 3h4v3a2 2 0 1 0 4 0V3h3v7h-3a2 2 0 1 0 0 4h3v7h-7v-3a2 2 0 1 0-4 0v3H3v-7h3a2 2 0 1 0 0-4H3V3z"/>',
+  flask:'<path d="M9 3h6M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7 15h10"/>',
+  split:'<path d="M12 21v-8M12 13L6 7M12 13l6-6M3 4h6M15 4h6"/>',
+  versus:'<path d="M4 6h7v12H4zM13 6h7v12h-7z"/><path d="M11 12h2"/>',
+  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  shield:'<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+  users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.6c2.6.3 4.4 2 5 4.9"/>',
+  laptop:'<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',
+  hex:'<path d="M12 2.5l8.2 4.75v9.5L12 21.5l-8.2-4.75v-9.5z"/>',
+  star:'<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
+  copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
+  redo:'<path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/>',
+  left:'<path d="M19 12H5M11 6l-6 6 6 6"/>',
+  right:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  chevd:'<path d="M6 9l6 6 6-6"/>',
+  sliders:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+  route:'<circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3.5 3.5 0 0 0 0-7H8a3.5 3.5 0 0 1 0-7h7.5"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
+  monitor:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>',
+  print:'<path d="M7 9V3h10v6M7 17H4v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6h-3"/><rect x="7" y="14" width="10" height="7"/>'
+};
+const ic = (n, s=22, w=1.8) => `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]||''}</svg>`;
+const LOGO = `<svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M21.5 10.5L17.6 17.6 10.5 21.5 14.4 14.4z" fill="#0da9a6"/><circle cx="16" cy="16" r="1.8" fill="#fff"/><circle cx="16" cy="3.5" r="2.6" fill="#07a869"/></svg>`;
+const TYPE_C = {R:'var(--tR)',I:'var(--tI)',A:'var(--tA)',S:'var(--tS)',E:'var(--tE)',C:'var(--tC)'};
+const TYPE_IC = {R:'gear',I:'flask',A:'bulb',S:'users',E:'target',C:'list'};
+
+/* ===================== الحالة ===================== */
+const KEY = 'samt_v1';
+const DEFW = {ri:7, sub:4, exp:5, pref:2, feas:1};
+let S = load() || fresh();
+function fresh(){ return {view:'landing', name:'', track:null, tier:null, A:{}, pos:0, adapt:null, subj:{}, years:null, env:null, val:null, tab:'sum', W:{...DEFW}, finished:false}; }
+function load(){ try{ const x=JSON.parse(localStorage.getItem(KEY)||'null'); if(!x||typeof x!=='object') return null; return sanitize(x); }catch(e){ return null; } }
+// نتحقق من كل حقل محفوظ حسب نوعه ونطاقه؛ التالف يُحذف لوحده ويبقى باقي التقدم
+function sanitize(x){
+  const s=fresh();
+  const int=(v,lo,hi)=>Number.isInteger(v)&&v>=lo&&v<=hi;
+  const inList=(v,list)=>list.some(o=>o.k===v);
+  if (['landing','intro','flow','results'].includes(x.view)) s.view=x.view;
+  if (typeof x.name==='string') s.name=x.name.slice(0,40);
+  if (inList(x.track,TRACKS)) s.track=x.track;
+  if (inList(x.tier,TIERS)) s.tier=x.tier;
+  if (inList(x.years,YEARS)) s.years=x.years;
+  if (inList(x.env,ENVS)) s.env=x.env;
+  if (inList(x.val,VALS)) s.val=x.val;
+  if (['sum','wish','vs','rec'].includes(x.tab)) s.tab=x.tab;
+  if (int(x.pos,0,1000)) s.pos=x.pos;
+  s.finished = x.finished===true;
+  const W=(x.W&&typeof x.W==='object')?x.W:{};
+  Object.keys(DEFW).forEach(k=>{ if (int(W[k],0,10)) s.W[k]=W[k]; });
+  if (Object.values(s.W).every(v=>v===0)) s.W={...DEFW};
+  const sj=(x.subj&&typeof x.subj==='object')?x.subj:{};
+  SUBJECTS.forEach(({k})=>{ if (int(sj[k],1,5)) s.subj[k]=sj[k]; });
+  const A=(x.A&&typeof x.A==='object')?x.A:{};
+  QL.forEach((_,i)=>{ if (int(A['L'+i],0,4)) s.A['L'+i]=A['L'+i]; });
+  PAIRS.forEach((_,i)=>{ if (A['P'+i]==='a'||A['P'+i]==='b') s.A['P'+i]=A['P'+i]; });
+  CH.forEach((c,i)=>{ if (int(A['C'+i],0,c.o.length-1)) s.A['C'+i]=A['C'+i]; });
+  DISC.forEach((_,i)=>{ if (['a','b','n'].includes(A['D'+i])) s.A['D'+i]=A['D'+i]; });
+  TASKS.forEach((t,i)=>{
+    const a=A['T'+i]; if (!a||typeof a!=='object') return;
+    const n = t.kind==='order' ? t.items.length : t.opts.length, o={};
+    const uniq=(arr,full)=>Array.isArray(arr)&&arr.every(v=>int(v,0,n-1))&&new Set(arr).size===arr.length&&(!full||arr.length===n);
+    if (t.kind==='order'){ if (uniq(a.perm,true)) o.perm=a.perm; if (uniq(a.pick,false)) o.pick=a.pick; }
+    else if (int(a.pick,0,n-1)) o.pick=a.pick;
+    const complete = t.kind==='order' ? !!(o.pick && o.pick.length===n) : o.pick!==undefined;
+    if (a.done===true && complete){
+      o.done=true; o.ok = t.kind==='order' ? ordOk(t,o.pick) : o.pick===t.correct;
+      if (int(a.enjoy,0,4)) o.enjoy=a.enjoy;
+    }
+    s.A['T'+i]=o;
+  });
+  if (Array.isArray(x.adapt) && x.adapt.length<=4 && x.adapt.every(i=>int(i,0,DISC.length-1)) && new Set(x.adapt).size===x.adapt.length) s.adapt=x.adapt;
+  // بدون مسار ونسبة صالحين ما نقدر نحسب نتيجة: نرجعه لشاشة التعريف ويختارهم من جديد (الإجابات تبقى)
+  if (!s.track || s.tier===null){ s.finished=false; if (s.view==='flow'||s.view==='results') s.view='intro'; }
+  if (s.view==='results' && !s.finished) s.view='landing';
+  return s;
+}
+let saveWarned=false;
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ if(!saveWarned){ saveWarned=true; setTimeout(()=>toast('ما نقدر نحفظ تقدّمك في هذا المتصفح'),50); } } }
+const app = document.getElementById('app');
+const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const RM = ()=>{ try{ return matchMedia('(prefers-reduced-motion:reduce)').matches; }catch(e){ return false; } };
+function top0(){ try{ window.scrollTo({top:0,behavior:RM()?'auto':'smooth'}); }catch(e){} }
+
+/* ===================== المسار (Flow) ===================== */
+function flow(){
+  const f=[];
+  // نخلط "أي النشاطين" بين عبارات الميول عشان ما يمل الطالب
+  QL.forEach((_,i)=>{ f.push({k:'lk',i}); if (i%5===4 && PAIRS[(i-4)/5]) f.push({k:'pr',i:(i-4)/5}); });
+  f.push({k:'mid'});
+  f.push({k:'sec',s:'ch'}); CH.forEach((_,i)=>f.push({k:'ch',i}));
+  f.push({k:'sec',s:'t'});  TASKS.forEach((_,i)=>f.push({k:'task',i}));
+  f.push({k:'subj'}); f.push({k:'prefs'});
+  f.push({k:'sec',s:'ad'}); (S.adapt||[]).forEach((d,j)=>f.push({k:'ad',j,d}));
+  f.push({k:'done'});
+  return f;
+}
+const ANS = new Set(['lk','pr','ch','task','subj','prefs','ad']);
+function answered(it){
+  const A=S.A;
+  switch(it.k){
+    case 'lk': return A['L'+it.i]!==undefined;
+    case 'pr': return !!A['P'+it.i];
+    case 'ch': return A['C'+it.i]!==undefined;
+    case 'task': return !!(A['T'+it.i] && A['T'+it.i].enjoy!==undefined);
+    case 'subj': return SUBJECTS.every(s=>S.subj[s.k]);
+    case 'prefs': return !!(S.years && S.env && S.val);
+    case 'ad': return !!A['D'+it.d];
+    default: return true;
+  }
+}
+function progress(){
+  const f=flow(), cur=f[S.pos]; let total=0, done=0;
+  f.forEach((it,k)=>{ if(ANS.has(it.k)){ total++; if(k<S.pos) done++; } });
+  if (S.adapt===null) total += 4;
+  return {idx:done+1, total, pct: Math.min(100,Math.round(done/total*100)), isQ: !!cur && ANS.has(cur.k)};
+}
+const PARTS = ['ميولك','تحديات التفكير','جرّب التخصص','موادك وتفضيلاتك','أسئلة مخصصة'];
+function partOf(it){ return ({lk:0,pr:0,mid:0,ch:1,task:2,subj:3,prefs:3,ad:4,done:4})[it.k] ?? (it.s==='ch'?1:it.s==='t'?2:4); }
+
+function next(){
+  clearTimeout(autoT);
+  if (S.view!=='flow') return;
+  const f=flow();
+  if (!answered(f[S.pos])) return showMissing(f[S.pos]);
+  if (S.pos < f.length-1){
+    S.pos++;
+    const it = flow()[S.pos];
+    // الأسئلة المخصصة تُحسب من جديد كل مرة (الإجابات محفوظة برقم السؤال نفسه، فما تضيع)
+    if (it.k==='sec' && it.s==='ad') S.adapt = pickAdaptive();
+  }
+  save(); render(); top0();
+}
+function prev(){
+  clearTimeout(autoT);
+  if (S.pos>0){ S.pos--; save(); render(); top0(); }
+  else { S.view='intro'; save(); render(); top0(); }
+}
+function showMissing(it){
+  const h=document.getElementById('hint'); let msg='اختر إجابة عشان تكمل', first=null;
+  if (it.k==='subj'){
+    const rows=[...app.querySelectorAll('.subj')].filter(r=>!S.subj[r.dataset.row]);
+    rows.forEach(r=>r.classList.add('miss')); first=rows[0];
+    msg = rows.length===1 ? 'باقي مادة وحدة ما قيّمتها' : `باقي ${rows.length} مواد ما قيّمتها`;
+  } else if (it.k==='prefs'){
+    const fs=[...app.querySelectorAll('[data-f]')].filter(x=>!S[x.dataset.f]);
+    fs.forEach(x=>x.classList.add('miss')); first=fs[0]; msg='اختر من كل قسم عشان تكمل';
+  } else if (it.k==='task'){
+    const a=S.A['T'+it.i]||{};
+    if (!a.done) msg='حل المهمة واضغط "تأكيد الإجابة" أول';
+    else { first=app.querySelector('.enj'); first && first.classList.add('miss'); msg='قيّم قد إيش استمتعت بالمهمة عشان تكمل'; }
+  }
+  if (h){ h.textContent=msg; }
+  if (first) first.scrollIntoView({behavior:RM()?'auto':'smooth',block:'center'});
+}
+
+/* ===================== الحساب ===================== */
+const CH_OPP = Object.fromEntries(ORDER.map(t=>[t, CH.reduce((n,c)=>n+c.o.filter(o=>o.t===t).length,0)]));
+function profile(){
+  const L={},P={},C={}; ORDER.forEach(t=>{L[t]=0;P[t]=0;C[t]=0;});
+  QL.forEach((q,i)=>{ L[q.t] += (S.A['L'+i] ?? 2); });
+  PAIRS.forEach((p,i)=>{ const v=S.A['P'+i]; if(v) P[p[v].t]++; });
+  const dom={}; Object.keys(DOM_N).forEach(d=>dom[d]=0);
+  CH.forEach((c,i)=>{ const v=S.A['C'+i]; if(v!==undefined){ const o=c.o[v]; C[o.t]++; o.d.forEach(d=>dom[d]++); } });
+  // كل نمط ينقسم على عدد مرات ظهوره كخيار في التحديات (I وE يظهرون أكثر من R وA وC)
+  const pct={}; ORDER.forEach(t=>{ pct[t]=Math.round(100*(.6*L[t]/20 + .15*P[t]/2 + .25*(CH_OPP[t]?C[t]/CH_OPP[t]:0))); });
+  const tdom={}, tinfo={};
+  TASKS.forEach((t,i)=>{ const a=S.A['T'+i]; if(a && a.enjoy!==undefined){ const v=.8*(a.enjoy/4)+.2*(a.ok?1:0); tinfo[t.id]={enjoy:a.enjoy, ok:a.ok}; t.dom.forEach(d=>{ tdom[d]=Math.max(tdom[d]??0, v); }); } });
+  const dmax=Math.max(1,...Object.values(dom));
+  const top=[...ORDER].sort((a,b)=>pct[b]-pct[a]);
+  return {L,P,C,pct,dom,dmax,tdom,tinfo,top};
+}
+
+function compute(W=S.W, useAd=true){
+  const pr = profile(), pct = pr.pct;
+  const max = Math.max(...ORDER.map(t=>pct[t]),1);
+  const rel = {}; ORDER.forEach(t=> rel[t] = .5*(pct[t]/100) + .5*(pct[t]/max));
+  const bonus = {}, adWhy = {};
+  if (useAd && S.adapt) S.adapt.forEach(di=>{
+    const d=DISC[di], v=S.A['D'+di]; if(!d || !v || v==='n') return;
+    const win = v==='a'?d.a:d.b, lose = v==='a'?d.b:d.a;
+    bonus[win]=(bonus[win]||0)+6; bonus[lose]=(bonus[lose]||0)-3;
+    (adWhy[win]=adWhy[win]||[]).push(lose);
+  });
+  const yearsMax = S.years ?? 99;
+  const sumW = (W.ri+W.sub+W.exp+W.pref+W.feas) || 1;
+  const all = M.map(m=>{
+    const w=[3,2,1];
+    const ri = m.code.split('').reduce((s,t,k)=>s + w[k]*rel[t], 0) / 6;
+    let sw=0, ss=0; Object.entries(m.sub).forEach(([k,wt])=>{ sw+=wt; ss += wt*(((S.subj[k]||3)-1)/4); });
+    const sub = sw ? ss/sw : .5;
+    const doms = MDOM[m.id]||[];
+    const tv = doms.filter(d=>pr.tdom[d]!==undefined).map(d=>pr.tdom[d]);
+    // ما فيه مهمة تقيس هذا التخصص → ما نخترع قيمة؛ وزن التجربة كله يروح لطريقة التفكير
+    const trial = tv.length ? tv.reduce((a,b)=>a+b,0)/tv.length : null;
+    const think = doms.length ? .3 + .7*(doms.reduce((a,d)=>a+pr.dom[d]/pr.dmax,0)/doms.length) : .4;
+    const yOk = m.yrs <= yearsMax;
+    const envFit = S.env==='flex' ? .7 : (m.env.includes(S.env) ? 1 : .35);
+    const valFit = m.val.includes(S.val) ? 1 : .45;
+    const pref = (yOk?1:0)*.4 + envFit*.3 + valFit*.3;
+    const gap = S.tier ? m.comp - S.tier : 0;
+    const feas = !S.tier ? .8 : gap>0 ? Math.max(0, 1-.3*gap) : 1;
+    const exp = trial===null ? think : .6*trial + .4*think;
+    const raw = (W.ri*ri + W.sub*sub + W.exp*exp + W.pref*pref + W.feas*feas)/sumW*100 + (bonus[m.id]||0);
+    const score = Math.max(5, Math.min(99, Math.round(raw)));
+    const eligible = TR_GROUPS[m.tr].includes(S.track);
+
+    const why=[], warn=[];
+    m.code.split('').slice(0,2).forEach(t=>{ if (pct[t] >= 55) why.push(`ميولك <b>${TYPES[t].s}</b> ${pct[t]>=75?'عالية':'جيدة'} (${pct[t]}%)، وهي من أساسيات هذا التخصص.`); });
+    const strong = Object.entries(m.sub).filter(([k,wt])=>wt>=2 && (S.subj[k]||0)>=4).map(([k])=>SUBJ_N[k]);
+    if (strong.length) why.push(`مستواك قوي في ${strong.join(' و')}، وهي مواد يعتمد عليها التخصص.`);
+    TASKS.forEach(t=>{ const ti=pr.tinfo[t.id]; if (ti && ti.enjoy>=3 && t.dom.some(d=>doms.includes(d))) why.push(`استمتعت بمهمة <b>${t.field}</b> (${ti.enjoy+1}/5)${ti.ok?' وحليتها صح':''}، وهي قريبة من طبيعة الدراسة فيه.`); });
+    const dHit = doms.filter(d=>pr.dom[d]>=2);
+    if (dHit.length) why.push(`في تحديات التفكير اخترت الحلول <b>${dHit.map(d=>DOM_N[d]).join(' و')}</b> أكثر من مرة.`);
+    if (adWhy[m.id]) why.push(`فضّلته في الأسئلة المخصصة على ${adWhy[m.id].map(id=>MBY[id].n).join(' و')}.`);
+    if (m.env.includes(S.env)) why.push(`بيئة العمل فيه تناسب تفضيلك: ${ENV_N[S.env]}.`);
+    if (m.val.includes(S.val)) why.push(`يحقق اللي يهمك في الوظيفة: ${VAL_N[S.val]}.`);
+    if (!why.length) why.push('يتوافق بشكل عام مع مزيج ميولك ومستواك في المواد.');
+
+    const weak = Object.entries(m.sub).filter(([k,wt])=>wt>=2 && (S.subj[k]||3)<=2).map(([k])=>SUBJ_N[k]);
+    if (weak.length) warn.push(`${weak.join(' و')} ${weak.length>1?'مواد أساسية':'مادة أساسية'} فيه، وتقييمك لنفسك فيها ضعيف. تحتاج تقوية جادة قبل الجامعة أو في السنة التحضيرية.`);
+    if (pct[m.code[0]]<45) warn.push(`الجانب ${TYPES[m.code[0]].s} هو جوهر التخصص، وميولك له منخفضة نسبيًا (${pct[m.code[0]]}%).`);
+    TASKS.forEach(t=>{ const ti=pr.tinfo[t.id]; if (ti && ti.enjoy<=1 && t.dom.some(d=>doms.includes(d))) warn.push(`مهمة ${t.field} ما عجبتك كثير، وهي تشبه جزء من الدراسة فيه.`); });
+    if (!yOk) warn.push(`مدة الدراسة (${m.yt}) أطول مما تتقبّل.`);
+    if (gap>0) warn.push(`حسب تقدير سَمْت، التنافس عليه ${COMP_N[m.comp]} مقارنة بنسبتك المتوقعة (تقدير عام، مو نسب قبول رسمية). حطّه رغبة لكن لا تعتمد عليه وحده.`);
+
+    let tag=null;
+    if (!eligible) tag={c:'no',t:'قد يتطلب مسارًا آخر: تأكد من دليل القبول'};
+    else if (S.tier){ tag = gap>0 ? {c:'amb',t:'رغبة طموحة'} : gap>=-1 ? {c:'fit',t:'رغبة مناسبة'} : {c:'safe',t:'رغبة آمنة'}; }
+    return {m, score, raw, eligible, why, warn, tag, bonus:bonus[m.id]||0, f:{ri,sub,trial,think,pref,feas}};
+  }).sort((a,b)=>b.raw-a.raw);
+  const el = all.filter(r=>r.eligible);
+  const other = all.filter(r=>!r.eligible);
+  return {pr, pct, top:pr.top, all, el, list: el.slice(0,10), other, wish: [...el.slice(0,10), ...other]};
+}
+const MBY = Object.fromEntries(M.map(m=>[m.id,m]));
+const TR_LBL = {health:'غالبًا الصحة والحياة أو العام', eng:'غالبًا علوم الحاسب والهندسة أو العام', sci:'غالبًا المسارات العلمية', all:'غالبًا كل المسارات'};
+
+function pickAdaptive(){
+  const R = compute(S.W,false);
+  const top8 = R.el.slice(0,8).map(r=>r.m.id), top12 = R.el.slice(0,12).map(r=>r.m.id), top3 = top8.slice(0,3);
+  const sc = Object.fromEntries(R.el.map(r=>[r.m.id,r.score]));
+  let cand = DISC.map((d,idx)=>({idx,d,ok: top8.includes(d.a)&&top8.includes(d.b), diff: Math.abs((sc[d.a]??0)-(sc[d.b]??0))})).filter(x=>x.ok).sort((a,b)=>a.diff-b.diff);
+  if (cand.length<2) cand = cand.concat(DISC.map((d,idx)=>({idx,d,ok:(top3.includes(d.a)&&top12.includes(d.b))||(top3.includes(d.b)&&top12.includes(d.a)),diff:Math.abs((sc[d.a]??0)-(sc[d.b]??0))})).filter(x=>x.ok && !cand.some(c=>c.idx===x.idx)).sort((a,b)=>a.diff-b.diff));
+  const used={}, out=[];
+  for (const c of cand){ if (out.length>=4) break; if ((used[c.d.a]||0)>=2 || (used[c.d.b]||0)>=2) continue; out.push(c.idx); used[c.d.a]=(used[c.d.a]||0)+1; used[c.d.b]=(used[c.d.b]||0)+1; }
+  return out;
+}
+
+/* ===================== رسومات ===================== */
+function hexSVG(pct, size=260){
+  const c=size/2, R=size*0.29;
+  const pt=(k,r)=>{ const a=(-90+k*60)*Math.PI/180; return [c+r*Math.cos(a), c+r*Math.sin(a)]; };
+  const P=(arr)=>arr.map(n=>n.toFixed(1)).join(',');
+  const ring=f=>ORDER.map((t,k)=>P(pt(k,R*f))).join(' ');
+  let s=`<svg viewBox="0 0 ${size} ${size}" role="img" aria-label="سداسي هولاند لميولك">`;
+  [1,.66,.33].forEach(f=>{ s+=`<polygon points="${ring(f)}" style="fill:${f===1?'var(--soft)':'none'};stroke:var(--line)" stroke-width="1.2"/>`; });
+  ORDER.forEach((t,k)=>{ const [x,y]=pt(k,R); s+=`<line x1="${c}" y1="${c}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" style="stroke:var(--line)"/>`; });
+  s+=`<polygon class="hexpoly" points="${ORDER.map((t,k)=>P(pt(k,R*Math.max(.06,pct[t]/100)))).join(' ')}" style="fill:var(--accent);fill-opacity:.18;stroke:var(--accent)" stroke-width="2.4" stroke-linejoin="round"/>`;
+  ORDER.forEach((t,k)=>{ const [x,y]=pt(k,R*Math.max(.06,pct[t]/100)); s+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.6" style="fill:var(--accent)"/>`; });
+  ORDER.forEach((t,k)=>{ const [x,y]=pt(k,R+size*0.11); s+=`<circle cx="${x.toFixed(1)}" cy="${(y-size*0.045).toFixed(1)}" r="${size*0.02}" style="fill:${TYPE_C[t]}"/><text x="${x.toFixed(1)}" y="${(y+size*0.03).toFixed(1)}" text-anchor="middle" font-weight="600" font-size="${size*0.054}" style="fill:var(--ink)" font-family="IBM Plex Sans Arabic, sans-serif">${TYPES[t].s}</text>`; });
+  return s+'</svg>';
+}
+
+function heroArt(){
+  const boards=[['الهندسة','#15445a',1,'#fff'],['الطب','#0da9a6',-1,'#fff'],['إدارة الأعمال','#c1b489',1,'#15445a'],['علوم الحاسب','#07a869',-1,'#fff'],['التعليم','#0f6f86',1,'#fff']];
+  let s=`<svg viewBox="0 0 420 360" aria-hidden="true">
+  <circle cx="300" cy="120" r="118" fill="#0da9a6" opacity=".10"/><circle cx="110" cy="250" r="70" fill="#c1b489" opacity=".22"/>
+  <path d="M30 352c70-40 140-40 190-20s120 30 180-10" fill="none" stroke="#c1b489" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <rect x="203" y="40" width="14" height="320" rx="5" style="fill:var(--brand)"/><circle cx="210" cy="36" r="10" fill="#c1b489"/>`;
+  boards.forEach(([t,c,dir,tc],i)=>{
+    const y=62+i*56, w=150;
+    const x0 = dir>0 ? 217 : 203-w;
+    const tip = dir>0 ? `${x0+w},${y} ${x0+w+18},${y+20} ${x0+w},${y+40}` : `${x0},${y} ${x0-18},${y+20} ${x0},${y+40}`;
+    s+=`<rect x="${x0}" y="${y}" width="${w}" height="40" rx="6" fill="${c}"/><polygon points="${tip}" fill="${c}"/><text x="${x0+w/2}" y="${y+26}" text-anchor="middle" fill="${tc}" font-size="16" font-weight="700" font-family="IBM Plex Sans Arabic, sans-serif">${t}</text>`;
+  });
+  return s+'</svg>';
+}
+
+function bridge(kind){
+  const base='<path d="M6 54h108" stroke="currentColor" stroke-width="3"/><path d="M6 54v12M114 54v12" stroke="currentColor" stroke-width="5"/>';
+  let b='';
+  if (kind==='bridge_flat') b='<rect x="6" y="44" width="108" height="10" rx="2" fill="currentColor" opacity=".85"/>';
+  if (kind==='bridge_truss'){ b='<path d="M6 54L24 30L42 54L60 30L78 54L96 30L114 54M24 30H96" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>'; }
+  if (kind==='bridge_rect'){ b='<path d="M6 30H114V54M6 30V54M33 30V54M60 30V54M87 30V54" fill="none" stroke="currentColor" stroke-width="3"/>'; }
+  return `<svg viewBox="0 0 120 72" aria-hidden="true">${base}${b}</svg>`;
+}
+
+function miniChart(data){
+  const W=360,H=170,pl=8,pb=26,pt=18, mx=Math.max(...data.map(d=>d[1]));
+  const bw=(W-pl*2)/data.length;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="مبيعات الأسبوع: ${data.map(([l,v])=>l+' '+v).join('، ')}. الكمية المجهزة كل يوم 120">`;
+  [0,.5,1].forEach(f=>{ const y=pt+(H-pt-pb)*(1-f); s+=`<line x1="0" x2="${W}" y1="${y}" y2="${y}" style="stroke:var(--line)" stroke-dasharray="${f?'3 4':''}"/>`; });
+  s+=`<line x1="0" x2="${W}" y1="${pt+(H-pt-pb)*(1-120/mx)}" y2="${pt+(H-pt-pb)*(1-120/mx)}" style="stroke:var(--amb)" stroke-width="1.5" stroke-dasharray="6 4"/>`;
+  s+=`<text x="${W-4}" y="${pt+(H-pt-pb)*(1-120/mx)-5}" font-size="11" style="fill:var(--amb);direction:rtl" font-family="IBM Plex Sans Arabic, sans-serif" text-anchor="start">الكمية المجهزة 120</text>`;
+  data.forEach(([l,v],i)=>{ const h=(H-pt-pb)*(v/mx), x=W-pl-(i+1)*bw+bw*.22, y=H-pb-h;
+    s+=`<rect x="${x}" y="${y}" width="${bw*.56}" height="${h}" rx="5" style="fill:var(--accent)" opacity="${v<120?.55:1}"/><text x="${x+bw*.28}" y="${y-5}" text-anchor="middle" font-size="12" font-weight="700" style="fill:var(--ink)" font-family="IBM Plex Sans Arabic, sans-serif">${v}</text><text x="${x+bw*.28}" y="${H-8}" text-anchor="middle" font-size="12" style="fill:var(--muted)" font-family="IBM Plex Sans Arabic, sans-serif">${l}</text>`; });
+  return s+'</svg>';
+}
+
+/* ===================== الهيدر ===================== */
+function header(){
+  const h=document.getElementById('hdr');
+  let right='';
+  if (S.view==='landing') right=`<nav class="nav"><a href="#about">عن الاختبار</a><a href="#faq">الأسئلة الشائعة</a></nav>`;
+  else if (S.view==='flow'){ const p=progress(); right=`<span class="meta" aria-live="polite">${p.isQ?`السؤال ${Math.min(p.idx,p.total)} من ${p.total}`:p.pct>=100?'خلصت!':'استراحة قصيرة'}</span>`; }
+  else if (S.view==='results') right=`<span class="meta">${S.name.trim()?esc(S.name.trim())+' · ':''}${TRACK_N[S.track]||''}</span>`;
+  const th=THEMES.find(t=>t.k===THEME)||THEMES[0];
+  const thm=`<div class="thm"><button class="thb" data-a="thm" aria-haspopup="true" aria-expanded="false" aria-controls="thmMenu" aria-label="المظهر: ${th.n}" title="المظهر">${ic(th.ic,20)}</button><div class="thmenu" id="thmMenu" role="radiogroup" aria-label="المظهر" hidden>${THEMES.map(t=>`<button ${rt(t.k===THEME,0,false)} data-th="${t.k}">${ic(t.ic,18)}${t.n}</button>`).join('')}</div></div>`;
+  h.innerHTML = `<button class="brand" data-a="home" aria-label="سَمْت، الصفحة الرئيسية">${LOGO}سَمْت</button><div class="hright">${right}${thm}</div>`;
+}
+// المظهر: حسب الجهاز (بدون data-theme) أو فاتح أو داكن، ويُحفظ في المتصفح
+const THEMES=[{k:'auto',n:'حسب الجهاز',ic:'monitor'},{k:'light',n:'فاتح',ic:'sun'},{k:'dark',n:'داكن',ic:'moon'}];
+let THEME = (()=>{ const t=document.documentElement.getAttribute('data-theme'); return t==='light'||t==='dark'?t:'auto'; })();
+function setTheme(k){
+  THEME=k;
+  if (k==='auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme',k);
+  try{ if (k==='auto') localStorage.removeItem('samt_theme'); else localStorage.setItem('samt_theme',k); }catch(e){}
+}
+function closeThm(focusBtn){
+  const tm=document.getElementById('thmMenu'), b=document.querySelector('.thb'); if(!tm || tm.hidden) return;
+  tm.hidden=true; if(b){ b.setAttribute('aria-expanded','false'); if(focusBtn) b.focus(); }
+}
+
+/* ===================== الصفحات ===================== */
+const FOCUS_KEYS=['set','v','sub','lk','pr','ch','ad','tp','ord','enj','tab'];
+function render(){
+  const ae=document.activeElement;
+  const sel = ae && ae.dataset ? FOCUS_KEYS.filter(k=>ae.dataset[k]!==undefined).map(k=>`[data-${k}="${ae.dataset[k]}"]`).join('') : '';
+  const vk=S.view+'|'+S.pos+'|'+S.tab, changed = render.vk!==vk, first = render.vk===undefined;
+  // تبديل التبويب ما ينقل التركيز للعنوان، يبقى على التبويب نفسه
+  const screenChanged = !render.vk || render.vk.split('|').slice(0,2).join('|')!==S.view+'|'+S.pos;
+  if (screenChanged) clearTimeout(autoT);
+  render.vk=vk;
+  try{
+    header();
+    ({landing:vLanding,intro:vIntro,results:vResults}[S.view]||vFlow)();
+  }catch(err){ console.error(err); render.vk=undefined; renderError(); return; }
+  if (changed && !RM()) app.firstElementChild && app.firstElementChild.classList.add('enter');
+  if (screenChanged && !first){ const h=app.querySelector('.qtext,h1,h2'); if(h){ h.tabIndex=-1; h.focus({preventScroll:true}); } }
+  else if (sel){ const el=app.querySelector(sel); if (el && !el.disabled) el.focus({preventScroll:true}); }
+}
+// تحديد الخيار بدون إعادة رسم الصفحة، عشان تبان الحركة قبل الانتقال
+function markSel(b){
+  const g=b.closest('[role=radiogroup]')||b.parentElement;
+  g.querySelectorAll('.on').forEach(x=>{ x.classList.remove('on'); x.setAttribute('aria-checked','false'); x.tabIndex=-1; });
+  b.classList.add('on'); b.setAttribute('aria-checked','true'); b.tabIndex=0;
+  if (S.view==='flow') updateNext();
+}
+function updateNext(){
+  const it=flow()[S.pos], n=app.querySelector('.qnav [data-a=next]'); if(!n) return;
+  const ok=answered(it); n.classList.toggle('dim',!ok); n.setAttribute('aria-disabled',String(!ok));
+  if (ok){ const h=document.getElementById('hint'); if(h) h.textContent=''; }
+  app.querySelectorAll('.miss').forEach(x=>{ if (ok || (x.dataset.row && S.subj[x.dataset.row]) || (x.dataset.f && S[x.dataset.f])) x.classList.remove('miss'); });
+}
+// إذا صار خطأ في العرض ما نمسح إجابات الطالب؛ نعرض شاشة استرداد والمسح يكون بطلبه فقط
+function renderError(){
+  try{ header(); }catch(e){}
+  app.innerHTML = `<div class="wrap narrow"><div class="card pad" style="text-align:center">
+    <h1 style="font-size:22px;margin-bottom:8px">صار خطأ غير متوقع في عرض هذي الصفحة</h1>
+    <p class="muted">إجاباتك ما زالت محفوظة. ارجع للصفحة الرئيسية وكمّل من هناك.</p>
+    <div class="center" style="margin-top:20px;gap:10px;flex-wrap:wrap"><button class="btn" data-a="home">ارجع للرئيسية</button><button class="btn ghost" data-a="hardReset">امسح كل شيء وابدأ من جديد</button></div>
+  </div></div>`;
+}
+// نافذة تأكيد داخل الصفحة
+function ask(title, body, okLabel, onOk){
+  if (document.querySelector('.dlg')) return;
+  clearTimeout(autoT);
+  const d=document.createElement('div'); d.className='dlg'; d.setAttribute('role','dialog'); d.setAttribute('aria-modal','true'); d.setAttribute('aria-labelledby','dlgT');
+  d.innerHTML=`<div class="card"><h3 id="dlgT">${title}</h3><p class="muted">${body}</p><div class="row"><button class="btn danger" data-dlg="ok">${okLabel}</button><button class="btn out" data-dlg="no">إلغاء</button></div></div>`;
+  const prevF=document.activeElement;
+  const close=()=>{ d.remove(); document.removeEventListener('keydown',esc_); prevF && prevF.focus && prevF.focus(); };
+  const esc_=e=>{
+    if (e.key==='Escape') return close();
+    if (e.key==='Tab'){ // التركيز يبقى داخل النافذة
+      const bs=[...d.querySelectorAll('button')], i=bs.indexOf(document.activeElement);
+      const n = e.shiftKey ? (i<=0?bs.length-1:i-1) : (i<0||i===bs.length-1?0:i+1);
+      bs[n].focus(); e.preventDefault();
+    }
+  };
+  d.addEventListener('click',e=>{ const x=e.target.closest('[data-dlg]'); if(e.target===d || (x && x.dataset.dlg==='no')) close(); else if (x){ close(); onOk(); } e.stopPropagation(); });
+  document.addEventListener('keydown',esc_);
+  document.body.appendChild(d); d.querySelector('[data-dlg=no]').focus();
+}
+
+function vLanding(){
+  const started = S.pos>0 || Object.keys(S.A).length>0;
+  app.innerHTML = `<div class="wrap">
+    <section class="card hero">
+      <div>
+        <span class="part" style="margin-bottom:14px">السَّمْت: الاتجاه والطريق</span>
+        <h1>حدّد <span>سَمْتك</span> الجامعي والمهني بثقة</h1>
+        <p class="lead">اختبار يكشف ميولك المهنية ويرتّب لك التخصصات الجامعية الأنسب، مع تفسير واضح لكل خيار حسب مسارك ونسبتك.</p>
+        <div class="cta">
+          ${S.finished?`<button class="btn lg" data-a="showRes">عرض نتيجتك ${ic('left',20,2.2)}</button><button class="btn lg out" data-a="start">ابدأ من جديد</button>`
+          : started?`<button class="btn lg" data-a="resume">أكمل من حيث وقفت ${ic('left',20,2.2)}</button><button class="btn lg out" data-a="start">ابدأ من جديد</button>`
+          : `<button class="btn lg" data-a="start">ابدأ الاختبار الآن ${ic('left',20,2.2)}</button>`}
+        </div>
+      </div>
+      <div class="hero-art">${heroArt()}</div>
+      <div class="hstats">
+        <div>${ic('shield',26)}<span><b>هولاند RIASEC</b>نموذج معروف ومستخدم على نطاق واسع في الإرشاد المهني</span></div>
+        <div>${ic('cap',26)}<span><b>${M.length}</b>تخصص جامعي</span></div>
+        <div>${ic('clock',26)}<span><b>15–20 د</b>مدة الاختبار</span></div>
+      </div>
+    </section>
+
+    <h2 class="sec-t" id="about">وش يميّز الاختبار؟</h2>
+    <p class="sec-s">ما نكتفي برأيك عن نفسك. نقيس سلوكك واختياراتك في مواقف ومهام حقيقية.</p>
+    <div class="feat4">
+      <div class="card"><div class="fi">${ic('puzzle')}</div><h3>تحديات تكشف طريقة تفكيرك</h3><p>مواقف قصيرة تختار كيف تحلها، فنعرف أسلوبك الحقيقي في التعامل مع المشكلات.</p></div>
+      <div class="card"><div class="fi">${ic('flask')}</div><h3>جرّب التخصص قبل تختاره</h3><p>مهام مصغرة من الطب والهندسة والبيانات والبرمجة وغيرها، ونشوف أيها استمتعت فيه.</p></div>
+      <div class="card"><div class="fi">${ic('split')}</div><h3>أسئلة تتغير حسب إجاباتك</h3><p>في النهاية نسألك أسئلة مخصصة تفرّق بين التخصصات المتقاربة اللي طلعت لك.</p></div>
+      <div class="card"><div class="fi">${ic('versus')}</div><h3>مناظرة بين التخصصات</h3><p>مقارنة أفضل ثلاثة تخصصات، ليش تقدّم واحد على الثاني، وتقدر تغيّر أولوياتك وتشوف الترتيب يتغير.</p></div>
+    </div>
+
+    <h2 class="sec-t">الأنماط الستة اللي يقيسها الاختبار</h2>
+    <p class="sec-s">كل شخص مزيج من هذي الأنماط، ونتيجتك تكون رمز من أقوى ثلاثة عندك.</p>
+    <div class="tgrid">${ORDER.map(t=>`<div class="tcard"><span class="tl" style="color:${TYPE_C[t]}">${ic(TYPE_IC[t],20)}</span><div><b>${TYPES[t].n}</b><p>${TYPES[t].d}</p></div></div>`).join('')}</div>
+
+    <h2 class="sec-t" id="faq">الأسئلة الشائعة</h2>
+    <div class="card pad faq" style="padding-top:8px;padding-bottom:8px">
+      <details><summary>هل النتيجة تحدد تخصصي بشكل نهائي؟</summary><p>لا. النتيجة استرشادية تساعدك تفكر بوضوح وترتب خياراتك. القرار النهائي يكون بعد مراجعة أدلة القبول واستشارة المرشد والكلام مع طلاب في التخصص.</p></details>
+      <details><summary>ليش يسألني عن مساري ونسبتي؟</summary><p>لأن بعض التخصصات تشترط مسارًا علميًا معينًا، وبعضها تنافسي جدًا. نستخدمها عشان نصنّف رغباتك إلى طموحة ومناسبة وآمنة.</p></details>
+      <details><summary>هل لازم أجاوب على كل شيء مرة وحدة؟</summary><p>لا. إجاباتك تنحفظ تلقائيًا في متصفحك، وتقدر تكمل من حيث وقفت.</p></details>
+      <details><summary>هل المهام فيها إجابة صح وغلط؟</summary><p>بعضها نعم، لكن الأهم عندنا قد إيش استمتعت بالمهمة. الصح والغلط وزنه بسيط في النتيجة.</p></details>
+    </div>
+  </div>`;
+}
+
+function chips(list, cur, field){
+  const none = !list.some(o=>o.k===cur);
+  return `<div class="chips" role="radiogroup" aria-labelledby="l_${field}">${list.map((o,i)=>`<button class="chip ${cur===o.k?'on':''}" role="radio" aria-checked="${cur===o.k}" tabindex="${cur===o.k||(none&&i===0)?0:-1}" data-set="${field}" data-v="${o.k}">${o.n}<span class="rd"></span></button>`).join('')}</div>`;
+}
+const rt = (on, i, none) => `role="radio" aria-checked="${!!on}" tabindex="${on||(none&&i===0)?0:-1}"`;
+
+function vIntro(){
+  const n = QL.length+PAIRS.length+CH.length+TASKS.length+2+4;
+  app.innerHTML = `<div class="wrap narrow intro">
+    <div class="stepper"><div class="stp on"><i>1</i>التعريف بالاختبار</div><div class="stp-line"></div><div class="stp"><i>2</i>الأسئلة</div><div class="stp-line"></div><div class="stp"><i>3</i>النتائج</div></div>
+    <div class="card pad">
+      <h1>قبل أن نبدأ</h1>
+      <div class="ifeat">
+        <div>${ic('target',34)}<b>اكتشف ميولك المهنية</b><span>تعرّف على المجالات اللي تناسب شخصيتك واهتماماتك.</span></div>
+        <div>${ic('cap',34)}<b>ترشيح تخصصات مناسبة</b><span>قائمة مرتبة بالتخصصات الأنسب لك ولمسارك.</span></div>
+        <div>${ic('scale',34)}<b>تفسير واضح لكل خيار</b><span>تعرف ليش يناسبك كل تخصص ووين ممكن تواجه صعوبة.</span></div>
+      </div>
+      <div class="imeta">
+        <div>${ic('clock',26)}<span>مدة الاختبار<b>15–20 دقيقة</b></span></div>
+        <div>${ic('list',26)}<span>عدد الأسئلة<b>حوالي ${n} سؤال</b></span></div>
+      </div>
+      <div class="field"><label class="lbl" for="nm">اسمك <small>(اختياري)</small></label><input type="text" id="nm" value="${esc(S.name)}" placeholder="مثال: سارة" autocomplete="off"><p class="muted sm" style="margin-top:6px">اسمك وإجاباتك تنحفظ في متصفحك على هذا الجهاز فقط، وما نرسلها لأي مكان.</p></div>
+      <div class="field"><span class="lbl" id="l_track">مسارك في الثانوي</span>${chips(TRACKS,S.track,'track')}</div>
+      <div class="field"><span class="lbl" id="l_tier">نسبتك الموزونة المتوقعة <small>(ثانوي + قدرات + تحصيلي)</small></span>${chips(TIERS,S.tier,'tier')}</div>
+      <div class="err" id="err" role="alert"></div>
+      <div class="center"><button class="btn lg" data-a="begin">ابدأ الآن ${ic('left',20,2.2)}</button></div>
+    </div>
+  </div>`;
+  document.getElementById('nm').addEventListener('input', e=>{ S.name=e.target.value.slice(0,40); save(); });
+}
+
+function shell(it, inner, {nav=true, canNext=null}={}){
+  const p=progress(), part=partOf(it);
+  const ok = canNext ?? answered(it);
+  const f=flow(), inP=f.map((x,k)=>k).filter(k=>ANS.has(f[k].k) && partOf(f[k])===part), qi=inP.indexOf(S.pos);
+  // عدد أسئلة القسم معروف إلا في الأسئلة المخصصة (تنحسب بعدين)
+  const cnt = qi>=0 && part!==4 ? ` · ${qi+1} من ${inP.length}` : '';
+  return `<div class="wrap narrow">
+    <div class="qhead"><span class="part">الجزء ${part+1}: ${PARTS[part]}${cnt}</span><span>${Math.max(0,p.pct)}%</span></div>
+    <div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${p.pct}" aria-label="تقدّم الاختبار"><i style="width:${Math.max(2,p.pct)}%"></i></div>
+    <div class="segs">${PARTS.map((x,i)=>`<span class="${i===part?'on':''}">${x}</span>`).join('')}</div>
+    <div class="card pad qcard">${inner}
+      ${nav?`<div class="qbar"><p class="hint" id="hint" aria-live="polite"></p><div class="qnav"><button class="btn out sm" data-a="prev">${ic('right',18)} السابق</button><button class="btn sm ${ok?'':'dim'}" data-a="next" aria-disabled="${!ok}" aria-describedby="hint">التالي ${ic('left',18)}</button></div></div>`:''}
+    </div>
+  </div>`;
+}
+
+function vFlow(){
+  const f=flow(); if (S.pos>=f.length) S.pos=f.length-1;
+  const it=f[S.pos];
+  const A=S.A;
+  let h='';
+  switch(it.k){
+    case 'lk': {
+      const v=A['L'+it.i];
+      h = shell(it, `<p class="qlead">إلى أي درجة توافق على العبارة؟</p><h2 class="qtext" id="q">أستمتع ب${QL[it.i].q}</h2>
+        <div class="olist lik" role="radiogroup" aria-labelledby="q">${AGREE.map((l,k)=>{ const val=4-k; return `<button class="opt ${v===val?'on':''}" ${rt(v===val,k,v===undefined)} data-lk="${val}"><span class="tx">${l}</span><span class="rd"></span></button>`; }).join('')}</div>
+        <p class="kbd">تقدر تجاوب بالأرقام من 1 (أوافق بشدة) إلى 5 من الكيبورد</p>`);
+      break;
+    }
+    case 'pr': {
+      const p=PAIRS[it.i], v=A['P'+it.i];
+      const icFor = t=>TYPE_IC[t];
+      h = shell(it, `<p class="qlead">اختر واحد فقط</p><h2 class="qtext" id="q">أي النشاطين تفضّل أكثر؟</h2>
+        <div class="pair" role="radiogroup" aria-labelledby="q">${['a','b'].map((s,n)=>`<button class="pc ${v===s?'on':''}" ${rt(v===s,n,!v)} data-pr="${s}"><span class="pi">${ic(icFor(p[s].t),28)}</span><b>${p[s].x}</b><small>${p[s].s}</small><span class="rd"></span></button>`).join('')}</div>`);
+      break;
+    }
+    case 'mid': {
+      const p=progress();
+      h = `<div class="wrap narrow"><div class="card pad"><div class="mile">
+        <div><h2 style="font-size:26px">أحسنت${S.name.trim()?' يا '+esc(S.name.trim()):''}!</h2><p class="muted" style="font-size:17px;margin-top:4px">خلصت جزء الميول. الحين بنشوف كيف تفكر وكيف تتعامل مع مهام حقيقية.</p>
+          <div class="tipbox">${ic('bulb',20)}<span><b>نصيحة: </b>جاوب بناءً على اللي تستمتع فيه فعلًا، مو على اللي تشوفه أسهل أو أكثر شهرة.</span></div></div>
+        <div class="ring" style="--v:${p.pct}" role="img" aria-label="أنجزت ${p.pct}% من الاختبار"><span aria-hidden="true">${p.pct}%</span></div>
+      </div><div class="center" style="margin-top:22px;gap:10px;flex-wrap:wrap"><button class="btn lg out" data-a="prev">${ic('right',20)} السابق</button><button class="btn lg" data-a="next">متابعة الاختبار ${ic('left',20,2.2)}</button></div></div></div>`;
+      break;
+    }
+    case 'sec': {
+      const T = {
+        ch:{ic:'puzzle',t:'تحديات تكشف طريقة تفكيرك',d:'بنعطيك 8 مواقف قصيرة، واختر الحل اللي بتسويه فعلًا. هنا نقيس سلوكك في الاختيار، مو بس رأيك عن نفسك.',p:['ما فيه إجابة صح وغلط','اختر أول شيء بتسويه أنت، مو الحل "المثالي"','كل خيار يكشف أسلوب تفكير مختلف']},
+        t:{ic:'flask',t:'جرّب التخصص قبل أن تختاره',d:'7 مهام صغيرة مستوحاة من دراسة تخصصات مختلفة: الطب، الهندسة، البيانات، البرمجة، الأعمال، القانون، والتعليم.',p:['حاول تحل المهمة، وبعدها نوضح لك الإجابة','بعد كل مهمة قيّم قد إيش استمتعت فيها','استمتاعك أهم عندنا من الإجابة الصحيحة']},
+        ad:{ic:'split',t:'أسئلة مخصصة لك',d:'',p:[]}
+      }[it.s];
+      if (it.s==='ad'){
+        const pairs=(S.adapt||[]).map(i=>DISC[i]);
+        T.d = pairs.length ? 'بناءً على إجاباتك، طلعت لك تخصصات متقاربة جدًا. اخترنا لك أسئلة تفرّق بينها:' : 'إجاباتك واضحة بما يكفي، وما تحتاج أسئلة إضافية للتمييز بين التخصصات.';
+        T.p = pairs.map(d=>`${MBY[d.a].n} أو ${MBY[d.b].n}`);
+      }
+      h = `<div class="wrap narrow"><div class="qhead"><span class="part">الجزء ${partOf(it)+1}: ${PARTS[partOf(it)]}</span><span>${progress().pct}%</span></div><div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${progress().pct}" aria-label="تقدّم الاختبار"><i style="width:${Math.max(2,progress().pct)}%"></i></div>
+        <div class="card pad qcard"><div class="sec-hero"><div class="sec-ic">${ic(T.ic,36)}</div><div><h2>${T.t}</h2><p class="muted">${T.d}</p></div></div>
+        ${T.p.length?`<ul class="sec-points">${T.p.map(x=>`<li>${ic(it.s==='ad'?'versus':'check',18,2.2)}<span>${x}</span></li>`).join('')}</ul>`:''}
+        <div class="qnav"><button class="btn out sm" data-a="prev">${ic('right',18)} السابق</button><button class="btn" data-a="next">${it.s==='ad'&&!(S.adapt||[]).length?'متابعة':'ابدأ'} ${ic('left',18)}</button></div></div></div>`;
+      break;
+    }
+    case 'ch': {
+      const c=CH[it.i], v=A['C'+it.i];
+      h = shell(it, `<p class="qlead">موقف ${it.i+1} من ${CH.length}</p><h2 class="qtext" id="q">${c.q}</h2>
+        <div class="olist" role="radiogroup" aria-labelledby="q">${c.o.map((o,k)=>`<button class="opt ${v===k?'on':''}" ${rt(v===k,k,v===undefined)} data-ch="${k}"><span class="k">${'أبجد'[k]}</span><span class="tx">${o.x}</span></button>`).join('')}</div>`);
+      break;
+    }
+    case 'task': h = shell(it, taskBody(it.i)); break;
+    case 'subj': {
+      h = shell(it, `<p class="qtext" style="margin-bottom:6px">مستواك في المواد</p><p class="muted sm" style="margin-bottom:8px">قيّم كل مادة حسب درجاتك فيها ومدى ارتياحك لها.</p>
+        ${SUBJECTS.map(s=>`<div class="subj" data-row="${s.k}"><div class="nm" id="sb_${s.k}">${s.n}</div><div class="seg" role="radiogroup" aria-labelledby="sb_${s.k}">${SCALE.map((l,v)=>`<button class="${S.subj[s.k]===v+1?'on':''}" ${rt(S.subj[s.k]===v+1,v,!S.subj[s.k])} data-sub="${s.k}" data-v="${v+1}">${l}</button>`).join('')}</div></div>`).join('')}`);
+      break;
+    }
+    case 'prefs': {
+      h = shell(it, `<p class="qtext" style="margin-bottom:0">تفضيلاتك</p>
+        <div class="field" data-f="years"><span class="lbl" id="l_years">كم سنة دراسة جامعية تتقبّل؟</span>${chips(YEARS,S.years,'years')}</div>
+        <div class="field" data-f="env"><span class="lbl" id="l_env">وين تتخيل نفسك تشتغل؟</span>${chips(ENVS,S.env,'env')}</div>
+        <div class="field" data-f="val"><span class="lbl" id="l_val">وش أهم شيء لك في وظيفتك المستقبلية؟</span>${chips(VALS,S.val,'val')}</div>`);
+      break;
+    }
+    case 'ad': {
+      const d=DISC[it.d], v=A['D'+it.d];
+      h = shell(it, `<div class="adnote">${ic('split',20)}<span>نسألك هذا لأنك قريب بين <b>${MBY[d.a].n}</b> و<b>${MBY[d.b].n}</b>.</span></div>
+        <h2 class="qtext" id="q">${d.q}</h2>
+        <div class="olist" role="radiogroup" aria-labelledby="q">${[['a',d.oa],['b',d.ob],['n','الاثنين يعجبوني بنفس الدرجة']].map(([k,x],n)=>`<button class="opt ${v===k?'on':''}" ${rt(v===k,n,!v)} data-ad="${k}"><span class="k">${'أبج'[n]}</span><span class="tx">${x}</span></button>`).join('')}</div>`);
+      break;
+    }
+    case 'done': {
+      h = `<div class="wrap narrow"><div class="card done">
+        <div class="chk">${ic('check',44,3)}</div>
+        <h1>تم إنهاء الاختبار بنجاح!</h1>
+        <p class="muted" style="font-size:16.5px">حللنا إجاباتك وجهزنا تقريرك الشخصي. تقدر الحين تستعرض نتيجتك وتعرف التخصصات الأنسب لك.</p>
+        <div class="center" style="margin-top:24px;gap:10px;flex-wrap:wrap"><button class="btn lg" data-a="results">عرض النتائج ${ic('left',20,2.2)}</button></div>
+        <div style="margin-top:8px"><button class="btn ghost" data-a="prev">رجوع لتعديل إجابة</button></div>
+      </div></div>`;
+      break;
+    }
+  }
+  app.innerHTML = h;
+}
+
+// نص مخفي لقارئ الشاشة بعد التأكيد: أي خيار صحيح وأي خيار اخترته
+const resMark=(k,correct,pick)=>k===correct?`<span class="sr"> (الإجابة الصحيحة${pick===k?'، وهي إجابتك':''})</span>`:k===pick?'<span class="sr"> (إجابتك)</span>':'';
+function taskBody(i){
+  const t=TASKS[i], a=S.A['T'+i]||{};
+  const done = a.done;
+  let body=`<span class="tfield">${ic(t.ic,16)} مهمة من: ${t.field}</span><h2 class="ttitle qtext" id="q" style="font-size:clamp(20px,3vw,26px)">${t.title}</h2><p class="tintro">${t.intro}</p>`;
+  if (t.code) body+=`<div class="codebox">${esc(t.code)}</div>`;
+  if (t.rule) body+=`<div class="rule">${t.rule}</div>`;
+  if (t.table) body+=`<table class="ttable"><thead><tr>${t.table[0].map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${t.table.slice(1).map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+  if (t.chart) body+=`<div class="mchart">${miniChart(t.chart)}</div>`;
+  if (t.kind==='order'){
+    const ord=a.pick||[];
+    if (!a.perm){ a.perm=t.items.map((_,k)=>k).sort(()=>Math.random()-.5); if (a.perm.every((v,k)=>v===k)) a.perm.reverse(); S.A['T'+i]=a; save(); }
+    const ORDN=['الأول','الثاني','الثالث','الرابع','الخامس'];
+    body+=`<div class="ordl" role="group" aria-label="${esc(t.title)}">${a.perm.map(k=>{ const x=t.items[k], n=ord.indexOf(k); const isR = done && (a.ok || t.correct[n]===k); const cls = done ? (isR?'on right':'on wrong') : (n>=0?'on':''); const srt = n>=0 ? `ترتيبه ${ORDN[n]}${done?(isR?' (صحيح)':' (غير صحيح)'):''}: ` : 'غير مرتّب: '; return `<button class="ordi ${cls}" data-ord="${k}" aria-pressed="${n>=0}" ${done?'disabled':''}><span class="n" aria-hidden="true">${n>=0?n+1:''}</span><span><span class="sr">${srt}</span>${x}</span></button>`; }).join('')}</div>`;
+    if (!done) body+=`<p class="muted sm" style="margin-top:8px">اضغط على المريض مرة ثانية إذا تبي تشيله من الترتيب.</p>`;
+    if (!done) body+=`<div class="qnav" style="margin-top:12px"><button class="btn ghost sm" data-a="ordReset">${ic('redo',16)} إعادة الترتيب</button><button class="btn sm" data-a="tCheck" ${ord.length===t.items.length?'':'disabled'}>تأكيد الإجابة</button></div>`;
+  } else if (t.opts[0] && t.opts[0].startsWith('bridge')){
+    body+=`<div class="bopts" role="${done?'group':'radiogroup'}" aria-label="${esc(t.title)}">${t.opts.map((o,k)=>{ const cls = done ? (k===t.correct?'right':k===a.pick?'wrong':'') : (a.pick===k?'on':''); return `<button class="bopt ${cls}" data-tp="${k}" ${done?'disabled':rt(a.pick===k,k,a.pick===undefined)}>${bridge(o)}<span>${t.labels[k]}${done?resMark(k,t.correct,a.pick):''}</span></button>`; }).join('')}</div>`;
+    if (!done) body+=`<div class="qnav" style="margin-top:12px;justify-content:flex-end"><button class="btn sm" data-a="tCheck" ${a.pick!==undefined?'':'disabled'}>تأكيد الإجابة</button></div>`;
+  } else {
+    body+=`<div class="olist" role="${done?'group':'radiogroup'}" aria-label="${esc(t.title)}">${t.opts.map((o,k)=>{ let cls=''; if(done){ if(k===t.correct) cls='right'; else if(k===a.pick) cls='wrong'; } else if (a.pick===k) cls='on'; return `<button class="opt ${cls}" data-tp="${k}" ${done?'disabled':rt(a.pick===k,k,a.pick===undefined)}><span class="k">${'أبجد'[k]}</span><span class="tx">${o}${done?resMark(k,t.correct,a.pick):''}</span></button>`; }).join('')}</div>`;
+    if (!done) body+=`<div class="qnav" style="margin-top:12px;justify-content:flex-end"><button class="btn sm" data-a="tCheck" ${a.pick!==undefined?'':'disabled'}>تأكيد الإجابة</button></div>`;
+  }
+  if (done){
+    const right = t.kind==='order' ? 'الترتيب المقبول: '+t.correct.map((k,n)=>`(${n+1}) ${t.items[k]}`).join('، ')+(t.altNote?` (${t.altNote})`:'') : 'الإجابة الصحيحة: '+(t.labels?t.labels[t.correct]:t.opts[t.correct]);
+    body+=`<div class="fb ${a.ok?'ok':'no'}" tabindex="-1"><b>${a.ok?'إجابة صحيحة':'مو بالضبط، بس لا تشيل هم'}</b>${a.ok?'':`<p style="margin-bottom:6px;font-weight:600">${right}</p>`}${t.explain}</div>`;
+    const faces=[0,1,2,3,4].map(k=>`<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r=".6" fill="currentColor"/><circle cx="15" cy="10" r=".6" fill="currentColor"/><path d="${['M8 16.5c2.5-2 5.5-2 8 0','M8.5 16c2-1 5-1 7 0','M8.5 15.5h7','M8.5 14.5c2 1.2 5 1.2 7 0','M8 14c2.5 2.6 5.5 2.6 8 0'][k]}"/></svg>`);
+    body+=`<div class="enj"><span class="lbl" id="l_enj">قد إيش استمتعت بهالمهمة؟</span><div class="escale" role="radiogroup" aria-labelledby="l_enj">${ENJOY.map((l,k)=>`<button class="${a.enjoy===k?'on':''}" ${rt(a.enjoy===k,k,a.enjoy===undefined)} data-enj="${k}">${faces[k]}${l}</button>`).join('')}</div></div>`;
+  }
+  return body;
+}
+
+/* ===================== النتائج ===================== */
+let LAST=null;
+const FACT=[['ri','ميولك'],['sub','موادك'],['trial','تجربة التخصص'],['think','طريقة تفكيرك'],['pref','تفضيلاتك'],['feas','واقعية القبول']];
+const FW = W=>({ri:W.ri,sub:W.sub,trial:W.exp*.6,think:W.exp*.4,pref:W.pref,feas:W.feas});
+
+function vResults(){
+  const R=compute(); LAST=R;
+  const tabs=[['sum','ملخص النتائج'],['wish','ترتيب الرغبات'],['vs','مناظرة التخصصات'],['rec','توصيات إضافية']];
+  let body='';
+  if (S.tab==='sum') body=tabSum(R);
+  else if (S.tab==='wish') body=tabWish(R);
+  else if (S.tab==='vs') body=tabVs(R);
+  else body=tabRec(R);
+  app.innerHTML = `<div class="wrap">
+    <div class="rtop"><h1>${S.name.trim()?'نتيجة '+esc(S.name.trim()):'نتيجتك'}</h1>
+      <div class="ract"><button class="btn out sm" data-a="copy">${ic('copy',16)} نسخ النتيجة</button><button class="btn out sm" data-a="pdf">${ic('print',16)} تحميل PDF</button><button class="btn out sm" data-a="edit">${ic('right',16)} عدّل إجاباتك</button><button class="btn ghost sm" data-a="redo">${ic('redo',16)} إعادة الاختبار</button></div></div>
+    <div class="tabs" role="tablist" aria-label="أقسام النتيجة">${tabs.map(([k,l])=>`<button role="tab" id="tab-${k}" aria-controls="tabBody" aria-selected="${S.tab===k}" tabindex="${S.tab===k?0:-1}" class="${S.tab===k?'on':''}" data-tab="${k}">${l}</button>`).join('')}</div>
+    <div id="tabBody" role="tabpanel" aria-labelledby="tab-${S.tab}">${body}</div>
+  </div>`;
+}
+
+function tabSum(R){
+  const code=R.top.slice(0,3), pr=R.pr, best=R.list[0];
+  const domTop = Object.entries(pr.dom).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]).slice(0,4);
+  const strongTypes = ORDER.filter(t=>R.pct[t]>=60).length;
+  const T1=TYPES[code[0]], T2=TYPES[code[1]];
+  // "متقاربة" تعني فرق صغير بين أقوى نمطين، و"منخفضة" تعني ما فيه نمط قوي؛ حالتين مختلفتين
+  const gap12 = R.pct[code[0]]-R.pct[code[1]];
+  const mixMsg = strongTypes>=3 ? 'عندك ميول قوية في أكثر من مجال، وهذا يفتح لك خيارات متنوعة. ركز على التخصصات اللي تجمع بين أقوى نمطين عندك.'
+    : strongTypes===0 && gap12<8 ? 'ميولك متقاربة وما فيه نمط واضح يتقدم على الباقي، وهذا طبيعي في عمرك. لا تعتمد على الميول وحدها: انتبه للمهام اللي استمتعت فيها فعلًا، وجرّب أكثر قبل القرار.'
+    : strongTypes===0 ? `ما فيه نمط قوي جدًا عندك حاليًا، لكن أوضح ميولك هو ${T1.s}. خذ الترتيب كبداية للتفكير، وجرّب أكثر في المجالات القريبة منه.`
+    : 'ميولك واضحة ومركزة، وهذا يسهّل اختيار التخصص.';
+  return `<div class="grid2">
+    <div class="stack">
+      <div class="card pad sumcard">
+        <div class="sumhero"><div>
+          <span class="eyebrow">ملخص نتائجك</span>
+          <h2>نمطك ${T1.s} · ${T2.s}</h2>
+          <p class="muted">بناءً على إجاباتك في الميول والتحديات والمهام، ظهر عندك نمط <b style="color:var(--ink)">${T1.s}</b> بشكل أوضح، يليه <b style="color:var(--ink)">${T2.s}</b>. ${best?`وأعلى تخصص توافقًا معك هو <b style="color:var(--ink)">${best.m.n}</b>.`:''}</p>
+        </div>${hexSVG(R.pct,220)}</div>
+        <div class="tiles">
+          <div class="tile">${ic('target',28)}<div><b>${best?best.m.n:'—'}</b><span>أعلى تخصص توافقًا</span></div></div>
+          <div class="tile">${ic('hex',28)}<div><b>${code.map(t=>TYPES[t].s).join(' · ')}</b><span>أقوى 3 أنماط عندك (${code.join('')})</span></div></div>
+          <div class="tile">${ic('cap',28)}<div><b>${R.list.length} تخصصات</b><span>مقترحة لمسارك</span></div></div>
+        </div>
+      </div>
+      <div class="card pad">
+        <h3 class="h3">${ic('cap',20)} أعلى 3 رغبات</h3>
+        <p class="muted sm" style="margin-bottom:10px">ترتيب استرشادي حسب توافقها معك، مو نسبة قبول. اضغط على أي تخصص لتقرأ تفسيره.</p>
+        <div class="rerank">${R.list.slice(0,3).map((r,i)=>`<button class="rr rrb" data-a="openWish" data-id="${r.m.id}"><span class="n">${i+1}</span><span>${r.m.n}</span><span>${r.tag?`<span class="pill ${r.tag.c}">${r.tag.t}</span>`:''}</span><b>${r.score}%</b></button>`).join('')}</div>
+        <button class="btn sm" style="margin-top:14px;width:100%" data-tab="wish">شوف الترتيب الكامل مع التفسير ${ic('left',16)}</button>
+      </div>
+      <div class="card pad">
+        <h3 class="h3">${ic('chart',20)} تفسير النتيجة العامة</h3>
+        <div class="txt">
+          <p><b>${T1.n}:</b> ${T1.d}</p>
+          <p><b>${T2.n}:</b> ${T2.d}</p>
+          <p class="muted">${mixMsg}</p>
+        </div>
+      </div>
+      <div class="card pad">
+        <h3 class="h3">${ic('flask',20)} نتيجة "جرّب التخصص"</h3>
+        <div class="trl">${TASKS.map(t=>{ const ti=pr.tinfo[t.id]; return `<div class="tr">${ic(t.ic,20)}<span>${t.field}</span>${ti?`<span class="stars" role="img" aria-label="الاستمتاع ${ti.enjoy+1} من 5">${[0,1,2,3,4].map(k=>`<svg width="14" height="14" viewBox="0 0 24 24" fill="${k<=ti.enjoy?'currentColor':'none'}" stroke="currentColor" stroke-width="1.6">${IC.star}</svg>`).join('')}</span><span class="okx ${ti.ok?'y':'n'}">${ti.ok?'صح':'خطأ'}</span>`:'<span class="muted sm">لم تُحل</span><span></span>'}</div>`; }).join('')}</div>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="card pad">
+        <h3 class="h3">${ic('hex',20)} مجالاتك المهنية البارزة</h3>
+        <div class="bars">${R.top.map(t=>`<div class="brow"><div class="bl"><span>${TYPES[t].n}</span><span>${R.pct[t]}%</span></div><div class="t"><i style="width:${R.pct[t]}%;background:${TYPE_C[t]}"></i></div></div>`).join('')}</div>
+      </div>
+      <div class="card pad">
+        <h3 class="h3">${ic('puzzle',20)} طريقة تفكيرك في التحديات</h3>
+        ${domTop.length?`<p class="muted sm" style="margin-bottom:10px">في المواقف العملية، أكثر نوع حلول اخترته:</p><div class="dchips">${domTop.map(([d,v])=>`<span class="dchip">${DOM_N[d]} <b>${v}</b></span>`).join('')}</div>`:'<p class="muted">ما جاوبت على التحديات.</p>'}
+        <p class="muted sm" style="margin-top:12px">أكثر أسلوب ظهر في اختياراتك: <b style="color:var(--ink)">${TYPES[[...ORDER].sort((a,b)=>pr.C[b]-pr.C[a])[0]].s}</b>.</p>
+      </div>
+    </div>
+  </div>`;
+}
+
+function wishCard(r,i,o={}){
+  const m=r.m, open = o.open || (i===0 && !o.alt);
+  return `<details class="card wish" data-id="${m.id}" ${open?'open':''}>
+    <summary>${o.alt?`<div class="rank alt">${ic('route',18)}<span class="sr">قد يتطلب مسارًا آخر:</span></div>`:`<div class="rank ${i<3?'r'+(i+1):''}">${i+1}</div>`}
+      <div><div class="wn">${m.n}</div><div class="wmeta">${r.tag?`<span class="pill ${r.tag.c}">${r.tag.t}</span>`:''}<span>${m.col}</span></div></div>
+      <div class="ring sm" style="--v:${r.score}" role="img" aria-label="درجة الملاءمة ${r.score}%"><span aria-hidden="true">${r.score}%</span></div>${ic('chevd',18,2).replace('class="ic"','class="ic chev"')}</summary>
+    <div class="wb">
+      <div><h4>ليش يناسبك؟</h4><ul class="why">${r.why.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+      ${r.warn.length?`<div class="warn"><b>انتبه</b><ul>${r.warn.map(x=>`<li>${x}</li>`).join('')}</ul></div>`:''}
+      <div><h4>وش تدرس فيه؟</h4><p>${m.d}</p></div>
+      <div><h4>وين تشتغل بعده؟</h4><p>${m.c}${m.m?`. ${m.m}`:''}</p></div>
+      <dl class="facts"><div><dt>مدة الدراسة</dt><dd>${m.yt}</dd></div><div><dt>التنافس (تقدير سَمْت، مو نسب قبول)</dt><dd>${COMP_N[m.comp]}</dd></div><div><dt>المسار في الثانوي</dt><dd>${TR_LBL[m.tr]}: تأكد من دليل القبول</dd></div></dl>
+      ${m.lic?`<div class="lic">${ic('list',18)}<div><h4>بعد التخرج</h4><p>${m.lic}</p></div></div>`:''}
+      ${m.fam?`<p class="scnote">هذي البطاقة تمثل عائلة تخصصات متقاربة، والمسمى والمحتوى يختلفون بين الجامعات.</p>`:''}
+      ${m.t?`<div class="tip"><b>نصيحة: </b>${m.t}</div>`:''}
+    </div></details>`;
+}
+
+function tabWish(R){
+  const custom = JSON.stringify(S.W)!==JSON.stringify(DEFW);
+  return `<div class="stack">
+    <div class="card pad" style="padding-bottom:20px">
+      <h3 class="h3" style="margin-bottom:4px">${ic('cap',20)} ترتيب رغباتك من التخصصات</h3>
+      <p class="muted sm">مرتبة من الأكثر ملاءمة للأقل، حسب ميولك وموادك وتجربتك العملية وتفضيلاتك وواقعية القبول${custom?' (بالأولويات اللي عدّلتها في المناظرة)':''}. اضغط على أي تخصص لتقرأ التفسير.</p>
+      <p class="scnote">النسبة = مدى توافق التخصص معك، وليست نسبة قبولك.</p>
+      ${S.tier?`<div class="legend"><span class="pill amb">طموحة: التنافس عليها أعلى من نسبتك</span><span class="pill fit">مناسبة</span><span class="pill safe">آمنة: التنافس عليها أقل من نسبتك</span></div><p class="scnote">الوسوم مبنية على تقدير سَمْت العام لمستوى التنافس، مو على نسب قبول رسمية. النسب الفعلية تختلف بين الجامعات وكل سنة.</p>`:'<p class="scnote">ما حددت نسبتك المتوقعة، فما فيه وسوم طموحة ومناسبة وآمنة، والترتيب مبني على التوافق فقط.</p>'}
+    </div>
+    ${R.list.map((r,i)=>wishCard(r,i)).join('')}
+    ${R.other.length ? `<div class="card pad" role="note"><h3 class="h3">${ic('route',20)} تخصصات قد تتطلب مسارًا غير ${TRACK_N[S.track]}</h3><p class="muted sm">ما حذفناها من ترتيبك، لكنها في آخر القائمة لأن كثير من الجامعات تشترط لها مسارًا آخر. الشروط تختلف بين الجامعات والسنوات، فتأكد من دليل القبول قبل ما تستبعدها أو تختارها.</p></div>${R.other.map((r,i)=>wishCard(r,i,{alt:true})).join('')}`:''}
+  </div>`;
+}
+
+function argue(a,b,W){
+  const fw=FW(W);
+  // العوامل اللي ما لها قياس (مثل تجربة تخصص ما له مهمة) ما ندخلها في المقارنة
+  const d = FACT.filter(([k])=>a.f[k]!==null && b.f[k]!==null).map(([k,l])=>({k,l,v:fw[k]*(a.f[k]-b.f[k]), av:a.f[k], bv:b.f[k]})).sort((x,y)=>y.v-x.v);
+  const pros = d.filter(x=>x.v>0.05).slice(0,3);
+  const cons = d.filter(x=>x.v<-0.05).slice(-2).reverse();
+  const bd = a.bonus-b.bonus;
+  const adLi = bd>0 ? `<li>فضّلت ${a.m.n} في الأسئلة المخصصة، وهذا أضاف له ${bd} نقاط.</li>` : '';
+  const adCon = bd<0 ? `<li class="con">لكنك فضّلت ${b.m.n} في الأسئلة المخصصة (${-bd} نقاط لصالحه).</li>` : '';
+  return `<div class="arg"><h4>${ic('versus',18)} ليش ${a.m.n} قبل ${b.m.n}؟</h4>
+    <ul>${pros.length||adLi?pros.map(x=>`<li>${x.l} أقوى في ${a.m.n} (${Math.round(x.av*100)}% مقابل ${Math.round(x.bv*100)}%).</li>`).join('')+adLi:'<li>الفرق بينهم بسيط جدًا، وأي واحد منهم خيار قوي لك.</li>'}
+    ${cons.map(x=>`<li class="con">لكن ${b.m.n} يتفوق في ${x.l} (${Math.round(x.bv*100)}% مقابل ${Math.round(x.av*100)}%).</li>`).join('')}${adCon}</ul>
+    <p class="muted sm" style="margin-top:6px">${Math.round(a.raw-b.raw)<1?'الاثنين متقاربين جدًا في درجة الملاءمة، والفرق أقل من نقطة.':'الفرق في درجة الملاءمة: '+Math.round(a.raw-b.raw)+' نقطة تقريبًا.'}</p></div>`;
+}
+
+function tabVs(R){
+  return `<div class="grid2">
+    <div class="stack" id="vsLeft">${vsLeft(R)}</div>
+    <div class="stack">
+      <div class="card pad">
+        <h3 class="h3">${ic('sliders',20)} غيّر أولوياتك</h3>
+        <p class="muted sm" style="margin-bottom:14px">وش أهم شيء عندك في اختيار التخصص؟ حرّك المؤشرات وشوف كيف يتغير الترتيب.</p>
+        <div class="sliders">
+          ${[['ri','ميولي واهتماماتي','نتيجة أسئلة الميول والاختيارات'],['sub','مستواي في المواد','قوتك في المواد اللي يعتمد عليها التخصص'],['exp','تجربتي العملية','المهام اللي استمتعت فيها وطريقة تفكيرك'],['pref','مدة الدراسة وبيئة العمل','تفضيلاتك عن السنوات والمكان والقيم'],['feas','سهولة القبول','فرصتك في القبول حسب نسبتك']].map(([k,l,s])=>`<div class="sl"><label for="w_${k}">${l}<span id="wv_${k}">${S.W[k]}</span></label><small>${s}</small><input type="range" min="0" max="10" step="1" id="w_${k}" data-w="${k}" value="${S.W[k]}"></div>`).join('')}
+        </div>
+        <button class="btn ghost sm" style="margin-top:10px" data-a="resetW">${ic('redo',16)} رجّع الأولويات الافتراضية</button>
+      </div>
+      <div class="card pad"><h3 class="h3">${ic('list',20)} الترتيب بأولوياتك</h3><div class="rerank" id="rerank">${rerank(R)}</div></div>
+    </div>
+  </div>`;
+}
+
+function vsLeft(R){
+  const t3=R.list.slice(0,3);
+  if (t3.length<2) return '<div class="card pad">ما فيه تخصصات كافية للمقارنة.</div>';
+  const cols=t3.length;
+  const best = FACT.map(([k])=>Math.max(...t3.map(r=>r.f[k]===null?-1:r.f[k])));
+  const hasNull = t3.some(r=>r.f.trial===null);
+  return `<div class="card pad">
+      <h3 class="h3">${ic('versus',20)} مقارنة أفضل ${cols} تخصصات</h3>
+      <div class="vswrap" role="region" aria-label="جدول مقارنة التخصصات" tabindex="0"><div class="vs" style="grid-template-columns:140px repeat(${cols},1fr)">
+        <div class="h">العامل</div>${t3.map((r,i)=>`<div class="h ${i===0?'top':''}">${i+1}. ${r.m.n}<small>ملاءمة ${r.score}%</small></div>`).join('')}
+        ${FACT.map(([k,l],fi)=>`<div class="f ${fi===FACT.length-1?'last':''}">${l}</div>${t3.map(r=>{ const last=fi===FACT.length-1?'last':''; if (r.f[k]===null) return `<div class="${last}"><div class="cell"><span><span class="sr">${r.m.n}، ${l}: </span>— <span class="sr">ما فيه مهمة تقيسه</span></span></div></div>`; const v=Math.round(r.f[k]*100); const isB=r.f[k]===best[fi] && cols>1; return `<div class="${last}"><div class="cell ${isB?'best':''}"><span><span class="sr">${r.m.n}، ${l}: </span>${v}%</span><div class="t" aria-hidden="true"><i style="width:${v}%"></i></div></div></div>`; }).join('')}`).join('')}
+      </div></div>
+      ${hasNull?'<p class="scnote">— يعني ما فيه مهمة في الاختبار تقيس هذا التخصص مباشرة، فوزنها انحسب على طريقة تفكيرك.</p>':''}
+    </div>
+    <div class="argue">${argue(t3[0],t3[1],S.W)}${t3[2]?argue(t3[1],t3[2],S.W):''}</div>
+    <div class="card pad"><h3 class="h3">${ic('shield',20)} وين ممكن تواجه صعوبة؟</h3>
+      <div class="diff">${t3.map(r=>`<div class="d"><b>${r.m.n}</b>${r.warn.length?r.warn.slice(0,2).join(' '):'ما ظهرت نقاط ضعف واضحة من إجاباتك. تأكد بس من شروط القبول.'}</div>`).join('')}</div>
+    </div>`;
+}
+
+function rerank(R){
+  const base = compute(DEFW).list.map(r=>r.m.id);
+  return R.list.slice(0,6).map((r,i)=>{
+    const was=base.indexOf(r.m.id); let mv='<span class="mv eq">=</span>';
+    if (was===-1) mv='<span class="mv up">جديد</span>'; else if (was>i) mv=`<span class="mv up">▲ ${was-i}</span>`; else if (was<i) mv=`<span class="mv dn">▼ ${i-was}</span>`;
+    return `<div class="rr"><span class="n">${i+1}</span><span>${r.m.n}</span>${mv}<b>${r.score}%</b></div>`;
+  }).join('');
+}
+
+function tabRec(R){
+  const t3=R.list.slice(0,3).map(r=>r.m);
+  return `<div class="stack">
+    <div class="recs">
+      <div class="card"><div class="fi">${ic('book')}</div><h4>راجع متطلبات القبول</h4><p>في الجامعات اللي تهمك، تأكد من:</p><ul><li>المسارات المقبولة في كل تخصص</li><li>نسب القبول في السنوات السابقة</li><li>أوزان الثانوي والقدرات والتحصيلي</li></ul></div>
+      <div class="card"><div class="fi">${ic('users')}</div><h4>تحدّث مع مختصين أو طلاب</h4><p>اسأل طالب يدرس ${t3[0]?t3[0].n:'التخصص'} عن يومه الدراسي، وش أصعب مادة، ووش اللي فاجأه.</p></div>
+      <div class="card"><div class="fi">${ic('laptop')}</div><h4>جرّب قبل ما تقرر</h4><ul>${t3.map(m=>`<li><b style="color:var(--ink)">${m.n}:</b> ${m.t}</li>`).join('')}</ul></div>
+    </div>
+    <div class="card pad advice"><h3 class="h3">${ic('route',20)} كيف ترتّب رغباتك في بوابة القبول؟</h3>
+      <ol>
+        <li>ابدأ بالرغبات <b>الطموحة</b> اللي تبيها فعلًا، بعدها <b>المناسبة</b>، وخلّ في آخر القائمة رغبات <b>آمنة</b> تضمن لك مقعد.</li>
+        <li>في أغلب أنظمة القبول تُراجع رغباتك بالترتيب، وتُقبل في أعلى رغبة تنطبق عليك شروطها، فلا تحط تخصص ما تبيه فوق تخصص تبيه.</li>
+        <li>النسب المطلوبة تختلف بين الجامعات ومن سنة لسنة، فراجع دليل القبول الرسمي لكل جامعة.</li>
+        <li>احضر الأيام المفتوحة في الجامعات، وجرّب كورس مجاني قصير في التخصص اللي محتار فيه.</li>
+      </ol>
+    </div>
+  </div>`;
+}
+
+function resultText(R){
+  const L=[`نتيجة اختبار سَمْت${S.name.trim()?' - '+S.name.trim():''}`,`رمز الميول: ${R.top.slice(0,3).join('')} (${R.top.slice(0,3).map(t=>TYPES[t].s).join('، ')})`,`المسار: ${TRACK_N[S.track]}`,'','ترتيب الرغبات المقترح:'];
+  R.list.forEach((r,i)=>L.push(`${i+1}. ${r.m.n} - ${r.score}%${r.tag?' ('+r.tag.t+')':''}`));
+  if (R.other.length){ L.push('','تخصصات قد تتطلب مسارًا آخر (تأكد من دليل القبول):'); R.other.forEach(r=>L.push(`- ${r.m.n} - ${r.score}%`)); }
+  return L.join('\n');
+}
+
+/* ===================== الأحداث ===================== */
+function setErr(t){ const e=document.getElementById('err'); if(e) e.textContent=t; }
+let toastT=null;
+function toast(t){ const el=document.getElementById('toast'); el.textContent=t; el.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),1800); }
+function say(t){ const el=document.getElementById('live'); if (el){ el.textContent=''; setTimeout(()=>{ el.textContent=t; },30); } }
+let autoT=null;
+// الانتقال التلقائي مربوط بالسؤال اللي بدأ منه؛ إذا تغيرت الشاشة أو انفتحت نافذة ما يتنفذ
+function autoNext(){
+  clearTimeout(autoT);
+  const tok=S.view+'|'+S.pos;
+  autoT=setTimeout(()=>{ autoT=null; if (S.view==='flow' && S.view+'|'+S.pos===tok && !document.querySelector('.dlg')) next(); }, RM()?120:360);
+}
+
+// الأسهم تتنقل بين الخيارات (في RTL: اليسار = التالي)
+document.addEventListener('keydown', e=>{
+  const g=e.target.closest && e.target.closest('[role=radiogroup],[role=tablist]');
+  if (!g || !/^Arrow/.test(e.key)) return;
+  const r=[...g.querySelectorAll('[role=radio],[role=tab]')].filter(x=>!x.disabled), i=r.indexOf(e.target); if(i<0) return;
+  const d=(e.key==='ArrowLeft'||e.key==='ArrowDown')?1:-1, t=r[(i+d+r.length)%r.length];
+  r.forEach(x=>x.tabIndex=-1); t.tabIndex=0; t.focus(); e.preventDefault();
+});
+document.addEventListener('keydown', e=>{
+  if (S.view!=='flow' || e.target.tagName==='INPUT' || e.repeat || e.ctrlKey || e.metaKey || e.altKey || document.querySelector('.dlg')) return;
+  const it=flow()[S.pos]; const n=Number(e.key);
+  const pick = sel => { const b=app.querySelector(sel); if (b){ b.click(); } };
+  if (it.k==='lk' && n>=1 && n<=5) pick(`[data-lk="${5-n}"]`);
+  else if (it.k==='ch' && n>=1 && n<=4) pick(`[data-ch="${n-1}"]`);
+  else if (it.k==='pr' && (n===1||n===2)) pick(`[data-pr="${n===1?'a':'b'}"]`);
+  else if (it.k==='ad' && n>=1 && n<=3) pick(`[data-ad="${['a','b','n'][n-1]}"]`);
+  else if (e.key==='Enter' && (e.target===document.body || e.target.classList.contains('qtext'))) next();
+});
+
+let wRAF=0;
+document.addEventListener('input', e=>{
+  const k=e.target.dataset && e.target.dataset.w; if(!k) return;
+  let v=Number(e.target.value);
+  // ما نسمح تصير كل الأوزان صفر، وإلا الترتيب يفقد معناه
+  if (v===0 && Object.entries(S.W).every(([kk,vv])=>kk===k || vv===0)){ v=1; e.target.value='1'; toast('لازم يبقى عامل واحد على الأقل له وزن'); }
+  S.W[k]=v;
+  document.getElementById('wv_'+k).textContent=S.W[k];
+  cancelAnimationFrame(wRAF);
+  wRAF=requestAnimationFrame(()=>{
+    const R=compute(); LAST=R;
+    const rr=document.getElementById('rerank'), vl=document.getElementById('vsLeft');
+    if (rr) rr.innerHTML=rerank(R); if (vl) vl.innerHTML=vsLeft(R);
+  });
+});
+document.addEventListener('change', e=>{ if (e.target.dataset && e.target.dataset.w) save(); });
+
+// نسخة طباعة وحدة تنبني قبل الطباعة (من الزر أو من قائمة المتصفح) وكل البطاقات فيها مفتوحة
+function buildPrint(){
+  const pv=document.getElementById('pv'); if(!pv) return;
+  const R=compute();
+  pv.innerHTML=`<h1 style="font-size:22px;margin-bottom:6px">${S.name.trim()?'نتيجة '+esc(S.name.trim()):'نتيجتك'} في اختبار سَمْت</h1>
+    <p>رمز الميول: <b>${R.top.slice(0,3).join('')}</b> (${R.top.slice(0,3).map(t=>TYPES[t].s).join('، ')}) · ${TRACK_N[S.track]||''}</p>
+    <p class="scnote" style="margin-bottom:14px">النسبة = مدى توافق التخصص معك، وليست نسبة قبول. النتيجة استرشادية، وراجع أدلة القبول الرسمية قبل قرارك.</p>
+    <div class="stack">${R.list.map((r,i)=>wishCard(r,i,{open:true})).join('')}
+    ${R.other.length?`<h2 class="h3" style="margin-top:8px">تخصصات قد تتطلب مسارًا غير ${TRACK_N[S.track]}</h2>${R.other.map((r,i)=>wishCard(r,i,{open:true,alt:true})).join('')}`:''}</div>`;
+  document.body.classList.add('pv-on');
+}
+window.addEventListener('beforeprint', ()=>{ if (S.view==='results'){ try{ buildPrint(); }catch(err){ console.error(err); } } });
+window.addEventListener('afterprint', ()=>{ document.body.classList.remove('pv-on'); const pv=document.getElementById('pv'); if(pv) pv.innerHTML=''; });
+
+// ===== تحميل PDF حقيقي (يشتغل على الجوال واللابتوب) =====
+const PDF_LIBS = ['https://cdn.jsdelivr.net/npm/html2canvas-pro@1.6.7/dist/html2canvas-pro.min.js','https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'];
+let pdfLibsP=null;
+function loadScript(src){ return new Promise((ok,no)=>{ const sc=document.createElement('script'); sc.src=src; sc.async=true; sc.onload=ok; sc.onerror=()=>no(new Error('load '+src)); document.head.appendChild(sc); }); }
+function loadPdfLibs(){ if(!pdfLibsP){ pdfLibsP=Promise.all(PDF_LIBS.map(loadScript)).catch(e=>{ pdfLibsP=null; throw e; }); } return pdfLibsP; }
+async function savePdf(blob, name){
+  if (window.claude && typeof window.claude.use==='function'){
+    let dl=null; try{ dl=await window.claude.use('downloads'); }catch(e){}
+    if (dl){
+      try{ await dl.save({filename:name, data:blob}); return 'saved'; }
+      catch(e){ if (e && e.code==='declined') return 'declined'; if (e && e.code==='rate_limited'){ toast('لحظة، فيه طلب تحميل مفتوح'); return 'declined'; } }
+    }
+  }
+  const url=URL.createObjectURL(blob); const a=document.createElement('a');
+  a.href=url; a.download=name; a.rel='noopener'; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 60000);
+  return 'saved';
+}
+async function makePdf(){
+  toast('جاري تجهيز ملف PDF…');
+  try{ await loadPdfLibs(); }
+  catch(e){ toast('ما قدرنا نجهّز PDF بدون إنترنت، بنفتح لك الطباعة'); try{ buildPrint(); window.print(); }catch(_){} return; }
+  const pv=document.getElementById('pv');
+  try{
+    buildPrint(); document.body.classList.remove('pv-on');
+    pv.classList.add('pv-cap');
+    try{ await document.fonts.ready; }catch(e){}
+    const pvTop=pv.getBoundingClientRect().top, total=pv.scrollHeight;
+    // نقاط القطع المسموحة: بين البطاقات والعناوين، عشان ما تنقص بطاقة بين صفحتين
+    const cuts=[...pv.children, ...pv.querySelectorAll('.stack > *')].map(el=>Math.round(el.getBoundingClientRect().top-pvTop)).filter(y=>y>0).sort((a,b)=>a-b);
+    const H2C = window.html2canvas && (window.html2canvas.default || window.html2canvas);
+    const scale = Math.min(2, window.devicePixelRatio>1 ? 2 : 1.6);
+    const canvas = await H2C(pv,{scale, backgroundColor:'#ffffff', useCORS:true, logging:false,
+      onclone:(doc)=>{ doc.documentElement.setAttribute('data-theme','light'); }});
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({unit:'pt', format:'a4', compress:true});
+    const PW=pdf.internal.pageSize.getWidth(), PH=pdf.internal.pageSize.getHeight(), M=22;
+    const k=(PW-2*M)/794, pageH=Math.floor((PH-2*M)/k);
+    let y0=0, first=true;
+    while (y0 < total-2){
+      let y1=Math.min(total, y0+pageH);
+      if (y1<total){ const c=cuts.filter(c=>c>y0+80 && c<=y1).pop(); if (c) y1=c; }
+      const h=y1-y0, part=document.createElement('canvas');
+      part.width=canvas.width; part.height=Math.round(h*scale);
+      const ctx=part.getContext('2d'); ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,part.width,part.height);
+      ctx.drawImage(canvas,0,Math.round(y0*scale),canvas.width,part.height,0,0,part.width,part.height);
+      if(!first) pdf.addPage(); first=false;
+      pdf.addImage(part.toDataURL('image/jpeg',0.9),'JPEG',M,M,PW-2*M,h*k);
+      y0=y1;
+    }
+    const nm=(S.name||'').trim().replace(/[\\/:*?"<>|]/g,'');
+    const r=await savePdf(pdf.output('blob'), (nm?'نتيجة '+nm:'نتيجتي')+' - سمت.pdf');
+    if (r==='saved') toast('تم تجهيز ملف PDF');
+  }catch(err){ console.error(err); toast('صار خطأ في تجهيز PDF، جرّب مرة ثانية'); }
+  finally{ pv.classList.remove('pv-cap'); pv.innerHTML=''; }
+}
+document.addEventListener('keydown', e=>{
+  const tm=document.getElementById('thmMenu'); if (!tm || tm.hidden) return;
+  if (e.key==='Escape'){ closeThm(true); e.preventDefault(); e.stopPropagation(); }
+  else if (e.key==='Tab' && tm.contains(document.activeElement)) closeThm(false);
+});
+
+document.addEventListener('click', async e=>{
+  const tm=document.getElementById('thmMenu');
+  if (tm && !tm.hidden && !(e.target.closest && e.target.closest('.thm'))) closeThm(false);
+  const b=e.target.closest('button'); if(!b || b.disabled) return;
+  const d=b.dataset, it = S.view==='flow' ? flow()[S.pos] : null;
+  if (d.th){ setTheme(d.th); header(); const tb=document.querySelector('.thb'); tb && tb.focus(); say('المظهر: '+(THEMES.find(t=>t.k===d.th)||{}).n); return; }
+
+  if (d.set){ S[d.set] = (d.set==='tier'||d.set==='years') ? Number(d.v) : d.v; save(); markSel(b); if (S.view==='intro') setErr(''); return; }
+  if (d.tab){ const fromTab=b.getAttribute('role')==='tab'; S.tab=d.tab; save(); render(); if (fromTab){ const t=app.querySelector(`[role=tab][data-tab="${d.tab}"]`); t && t.focus({preventScroll:true}); } top0(); return; }
+  if (d.lk!==undefined){ S.A['L'+it.i]=Number(d.lk); save(); markSel(b); autoNext(); return; }
+  if (d.pr){ S.A['P'+it.i]=d.pr; save(); markSel(b); autoNext(); return; }
+  if (d.ch!==undefined){ S.A['C'+it.i]=Number(d.ch); save(); markSel(b); autoNext(); return; }
+  if (d.ad){ S.A['D'+it.d]=d.ad; save(); markSel(b); autoNext(); return; }
+  if (d.sub){ S.subj[d.sub]=Number(d.v); save(); markSel(b); return; }
+  if (d.ord!==undefined){
+    const a=S.A['T'+it.i]||(S.A['T'+it.i]={}); a.pick=a.pick||[]; const k=Number(d.ord), t=TASKS[it.i];
+    if (a.pick.includes(k)){ a.pick=a.pick.filter(x=>x!==k); say(`شلت من الترتيب: ${t.items[k]}`); }
+    else { a.pick.push(k); say(`رقم ${a.pick.length}: ${t.items[k]}`); }
+    save(); render(); return;
+  }
+  if (d.tp!==undefined){ const a=S.A['T'+it.i]||(S.A['T'+it.i]={}); a.pick=Number(d.tp); save(); render(); return; }
+  if (d.enj!==undefined){ S.A['T'+it.i].enjoy=Number(d.enj); save(); markSel(b); app.querySelector('.enj')?.classList.remove('miss'); return; }
+
+  switch(d.a){
+    case 'home': S.view='landing'; save(); render(); top0(); break;
+    case 'start': {
+      const go=()=>{ const keep={name:S.name}; S=fresh(); S.name=keep.name; S.view='intro'; save(); render(); top0(); };
+      const started = S.pos>0 || Object.keys(S.A).length>0;
+      if (started) ask('تبي تبدأ من جديد؟','بتنمسح كل إجاباتك السابقة وما تقدر ترجعها.','نعم، ابدأ من جديد',go); else go();
+      break;
+    }
+    case 'showRes': S.view='results'; save(); render(); top0(); break;
+    case 'edit': S.view='flow'; S.pos=flow().length-1; save(); render(); top0(); break;
+    case 'resume': {
+      if (S.finished){ S.view='results'; }
+      else if (!S.track || S.tier===null){ S.view='intro'; }
+      else { S.view='flow'; const f=flow(); let p=0; while(p<f.length-1 && answered(f[p])) p++; S.pos=Math.max(S.pos,0)>p?S.pos:p; }
+      save(); render(); top0(); break;
+    }
+    case 'begin':
+      if (!S.track) return setErr('اختر مسارك في الثانوي.');
+      if (S.tier===null) return setErr('اختر نسبتك المتوقعة، أو "لا أعرف بعد".');
+      S.view='flow'; save(); render(); top0(); break;
+    case 'next': next(); break;
+    case 'prev': prev(); break;
+    case 'ordReset': (S.A['T'+it.i] ||= {}).pick=[]; save(); render(); break;
+    case 'tCheck': {
+      const t=TASKS[it.i], a=S.A['T'+it.i];
+      a.ok = t.kind==='order' ? ordOk(t,a.pick) : a.pick===t.correct;
+      a.done=true; save(); render();
+      const fb=app.querySelector('.fb'); if (fb){ fb.scrollIntoView({behavior:RM()?'auto':'smooth',block:'start'}); fb.focus({preventScroll:true}); }
+      break;
+    }
+    case 'results': S.view='results'; S.tab='sum'; S.finished=true; save(); render(); top0(); break;
+    case 'redo': ask('تعيد الاختبار من البداية؟','بتنمسح نتيجتك الحالية وإجاباتك كلها.','نعم، أعد الاختبار',()=>{ const nm=S.name; S=fresh(); S.name=nm; S.view='intro'; save(); render(); top0(); }); break;
+    case 'resetW': S.W={...DEFW}; save(); render(); break;
+    case 'thm': { if(!tm) break; const open=tm.hidden; tm.hidden=!open; b.setAttribute('aria-expanded',String(open)); if (open){ const c=tm.querySelector('[aria-checked="true"]'); c && c.focus(); } break; }
+    case 'print': buildPrint(); try{ window.print(); }catch(err){ toast('الطباعة غير متاحة في هذا المتصفح'); } break;
+    case 'pdf': if (b.disabled) break; b.disabled=true; makePdf().finally(()=>{ b.disabled=false; }); break;
+    case 'openWish': {
+      S.tab='wish'; save(); render();
+      const det=app.querySelector(`details.wish[data-id="${d.id}"]`);
+      if (det){ det.open=true; const sm=det.querySelector('summary'); sm && sm.focus({preventScroll:true}); det.scrollIntoView({behavior:RM()?'auto':'smooth',block:'start'}); }
+      break;
+    }
+    case 'hardReset': ask('تمسح كل شيء؟','بتنمسح كل إجاباتك ونتيجتك وما تقدر ترجعها.','نعم، امسح وابدأ',()=>{ S=fresh(); save(); render(); top0(); }); break;
+    case 'copy':
+      { const txt=resultText(LAST||compute());
+        try{ await navigator.clipboard.writeText(txt); toast('تم نسخ النتيجة'); }
+        catch(err){ try{ const ta=document.createElement('textarea'); ta.value=txt; ta.style.cssText='position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); const ok=document.execCommand('copy'); ta.remove(); toast(ok?'تم نسخ النتيجة':'تعذّر النسخ من هذا المتصفح'); }catch(e2){ toast('تعذّر النسخ من هذا المتصفح'); } } }
+      break;
+  }
+});
+
+render();
+</script>
+</body>
+</html>
